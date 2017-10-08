@@ -5,7 +5,8 @@
 int main()
 {
 	App app;
-	app.createWindow(_T("Flappy Bird"), 288, 512, App::SHOW_CONSOLE);
+	app.createWindow(_T("Flappy Bird"), 288, 512);
+	app.setAppName(_T("flappybird_nomango"));
 	if (ImageLoader::init())
 	{
 		app.enterScene(new SplashScene());

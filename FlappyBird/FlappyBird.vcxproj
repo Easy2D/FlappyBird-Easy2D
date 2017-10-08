@@ -149,19 +149,28 @@
   <ItemGroup>
     <ClCompile Include="Bird.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Ground.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Pips.cpp" />
+    <ClCompile Include="Pipes.cpp" />
     <ClCompile Include="SplashScene.cpp" />
     <ClCompile Include="StartScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bird.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="Ground.h" />
     <ClInclude Include="ImageLoader.h" />
-    <ClInclude Include="Pips.h" />
+    <ClInclude Include="Pipes.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SplashScene.h" />
     <ClInclude Include="StartScene.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="FlappyBird.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

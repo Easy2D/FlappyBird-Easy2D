@@ -4,9 +4,8 @@
 
 Bird::Bird()
 {
-	auto frames = new ActionFrames(90);
+	auto frames = new ActionFrames(100);
 	this->addAction(new ActionNeverStop(frames));
-	this->setStatus(1);
 
 	int mode = random(0, 2);
 	if (mode == 0)
@@ -33,6 +32,12 @@ Bird::Bird()
 		frames->addFrame(ImageLoader::getImage(_T("bird2_2")));
 		frames->addFrame(ImageLoader::getImage(_T("bird2_1")));
 	}
+
+	// ³õÊ¼»¯·ÉÏè¶¯»­
+	auto moveBy = new ActionMoveBy(0.4f, CVector(0, 8));
+	fly = new ActionNeverStop(new ActionTwo(moveBy, moveBy->reverse()));
+
+	this->setStatus(1);
 }
 
 
@@ -45,14 +50,11 @@ void Bird::setStatus(int status)
 	switch (status)
 	{
 	case 0:
-		this->stopAllActions();
-		break;
+		this->stopAllActions(); break;
 	case 1:
-		{
-		auto fly = new ActionMoveBy(0.4f, CVector(0, 8));
-		this->addAction(new ActionNeverStop(new ActionTwo(fly, fly->reverse())));
-		break;
-		}
+		this->addAction(fly); break;
+	case 2:
+		this->stopAction(fly); break;
 	default:
 		break;
 	}
