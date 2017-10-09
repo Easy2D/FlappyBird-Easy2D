@@ -118,8 +118,8 @@ GameOverLayer::GameOverLayer(int score)
 	// 显示得分
 	scoreImage = new Number();
 	scoreImage->setDisplay(false);
-	scoreImage->setLittleNumber(0);
 	scoreImage->setPos(235, 228);
+	scoreImage->setLittleNumber(0);
 	this->add(scoreImage);
 	// 显示最高分
 	bestScoreImage = new Number();
@@ -145,11 +145,9 @@ void GameOverLayer::showScore()
 	UINT delay = (score > 12) ? UINT(1200.0f / score) : 100;
 	// 得分动画
 	Timer::addTimer(_T("show_score"), delay, [=] {
-		static int temp = 0;
-		if (temp <= score) {
+		if (scoreImage->getNumber() < score) {
 			// 切换一个数字
-			scoreImage->setLittleNumber(temp);
-			temp++;
+			scoreImage->setLittleNumber(scoreImage->getNumber() + 1);
 		}
 		else {
 			Timer::stopTimer(_T("show_score"));

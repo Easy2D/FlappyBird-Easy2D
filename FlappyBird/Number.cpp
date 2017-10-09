@@ -10,8 +10,14 @@ Number::~Number()
 {
 }
 
+int Number::getNumber()
+{
+	return number;
+}
+
 void Number::setNumber(int number)
 {
+	this->number = number;
 	this->clearAllSprites();
 
 	// 数字高度
@@ -51,6 +57,7 @@ void Number::setNumber(int number)
 
 void Number::setLittleNumber(int number)
 {
+	this->number = number;
 	this->clearAllSprites();
 
 	// 数字高度
