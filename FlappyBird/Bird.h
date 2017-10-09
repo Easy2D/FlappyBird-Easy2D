@@ -16,5 +16,6 @@ public:
 	bool living = true;
 	float speed = 0;
 	Action * fly;
+	ActionFrames * frames;
 };
 

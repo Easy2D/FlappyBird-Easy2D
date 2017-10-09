@@ -4,7 +4,7 @@
 
 Bird::Bird()
 {
-	auto frames = new ActionFrames(100);
+	frames = new ActionFrames(100);
 	this->addAction(new ActionNeverStop(frames));
 
 	int mode = random(0, 2);
@@ -54,7 +54,7 @@ void Bird::setStatus(int status)
 	case 1:
 		this->addAction(fly); break;
 	case 2:
-		this->stopAction(fly); break;
+		this->stopAction(fly); frames->setInterval(50); break;
 	default:
 		break;
 	}
