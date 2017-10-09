@@ -83,7 +83,7 @@ GameOverLayer::GameOverLayer(int score)
 	this->score = score;
 	this->bestScore = FileUtils::getInt(_T("best_score"), 0);
 	// 保存最高分
-	if (score >= bestScore) {
+	if (score > bestScore) {
 		FileUtils::saveInt(_T("best_score"), score);
 		bestScore = score;
 		// 添加 new 图标
