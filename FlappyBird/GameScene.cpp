@@ -35,8 +35,9 @@ void GameScene::init()
 
 	// 添加鼠标消息监听
 	MouseMsg::addListener(_T("mouse_click"), [=] {
-		// 监听到鼠标左键按下的消息时，执行 onClick 函数
-		if (MouseMsg::getMsg() == MouseMsg::LBUTTON_DOWN) {
+		// 监听到鼠标左键按下（或双击）的消息时，执行 onClick 函数
+		if (MouseMsg::getMsg() == MouseMsg::LBUTTON_DOWN ||
+			MouseMsg::getMsg() == MouseMsg::LBUTTON_DBLCLK) {
 			this->onClick();
 		}
 	});
