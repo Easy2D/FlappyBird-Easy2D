@@ -125,9 +125,8 @@ void GameOverLayer::showScore()
 	// 显示得分、最高分和奖牌
 	scoreImage->setDisplay(true);
 	bestScoreImage->setDisplay(true);
-	// 计算切换数字的时间间隔，最长800毫秒显示完动画
-	UINT delay = UINT(1200.0f / score);
-	delay = min(delay, 100);
+	// 计算切换数字的时间间隔，最长1200毫秒显示完动画
+	UINT delay = (score > 12) ? UINT(1200.0f / score) : 100;
 	// 得分动画
 	Timer::addTimer(_T("show_score"), delay, [=] {
 		static int temp = 0;
