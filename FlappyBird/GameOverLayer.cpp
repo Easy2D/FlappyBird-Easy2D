@@ -42,12 +42,28 @@ GameOverLayer::GameOverLayer(int score)
 	menu->setUnselectCallback([=] {
 		menu->move(0, -5);
 	});
+	// 显示链接按钮
+	auto share = new ImageButton(ImageLoader::getImage(_T("button_share")));
+	share->setWindowCenterX();
+	share->setY(435);
+	share->setClickedCallback([] {
+		//MusicUtils::playMusic(_T("res/sound/MenuClick.mp3"));
+		ShellExecute(NULL, _T("open"), _T("https://gitee.com/werelone/FlappyBird"), NULL, NULL, SW_SHOWNORMAL);
+	});
+	// 按钮按下时，向下移动5像素
+	share->setSelectCallback([=] {
+		share->move(0, 5);
+	});
+	share->setUnselectCallback([=] {
+		share->move(0, -5);
+	});
 	// 合并为一个节点
 	auto all = new BatchNode();
 	all->add(gameover);
 	all->add(panel);
 	all->add(restart);
 	all->add(menu);
+	all->add(share);
 	this->add(all);
 	// 将节点整体移到屏幕下方
 	all->setY(App::getHeight());
