@@ -34,6 +34,12 @@
     <ClCompile Include="Pipes.cpp">
       <Filter>对象</Filter>
     </ClCompile>
+    <ClCompile Include="Number.cpp">
+      <Filter>对象</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverLayer.cpp">
+      <Filter>场景</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameScene.h">
@@ -58,6 +64,12 @@
       <Filter>对象</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Number.h">
+      <Filter>对象</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverLayer.h">
+      <Filter>场景</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="FlappyBird.rc" />

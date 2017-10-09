@@ -148,19 +148,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bird.cpp" />
+    <ClCompile Include="GameOverLayer.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Number.cpp" />
     <ClCompile Include="Pipes.cpp" />
     <ClCompile Include="SplashScene.cpp" />
     <ClCompile Include="StartScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bird.h" />
+    <ClInclude Include="GameOverLayer.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="ImageLoader.h" />
+    <ClInclude Include="Number.h" />
     <ClInclude Include="Pipes.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SplashScene.h" />

@@ -1,6 +1,6 @@
 #include "GameScene.h"
 #include "ImageLoader.h"
-
+#include "GameOverLayer.h"
 
 void GameScene::init()
 {
@@ -17,6 +17,11 @@ void GameScene::init()
 	bird->setWindowCenterY();
 	bird->setX(60);
 	this->add(bird);
+	// 添加得分
+	scoreImage = new Number();
+	scoreImage->setPos(App::getWidth() / 2, 50);
+	scoreImage->setNumber(0);
+	this->add(scoreImage);
 	// 添加 ready 图片
 	ready = new Sprite(ImageLoader::getImage(_T("text_ready")));
 	ready->setWindowCenter();
@@ -45,6 +50,12 @@ void GameScene::init()
 	});
 }
 
+void GameScene::onEnter()
+{
+	// 进入场景时播放音效
+	//MusicUtils::playMusic(_T("res/sound/swoosh.mp3"));
+}
+
 void GameScene::onClick()
 {
 	if (!m_bStart) {
@@ -55,6 +66,8 @@ void GameScene::onClick()
 	if (bird->living) {
 		// 如果小鸟还活着，给小鸟一个向上的速度
 		bird->speed = -7.2f;
+		// 播放音效
+		//MusicUtils::playMusic(_T("res/sound/fly.mp3"));
 	}
 }
 
@@ -73,6 +86,17 @@ void GameScene::onStart()
 		bird->move(0, (int)bird->speed);
 		// 模拟小鸟所受重力
 		bird->speed += 0.4f;
+		// 判断是否得分
+		if (pipes->pipes[0][0]->getX() <= bird->getX()) {
+			static Sprite* temp = nullptr;
+			if (temp != pipes->pipes[0][0]) {
+				// 记录这个得分的水管
+				temp = pipes->pipes[0][0];
+				// 加分
+				score++;
+				scoreImage->setNumber(score);
+			}
+		}
 		// 判断小鸟是否和水管碰撞
 		if (bird->living) {
 			if (pipes->isCollisionWith(bird)) {
@@ -105,73 +129,23 @@ void GameScene::onBirdDie()
 {
 	// 小鸟死亡
 	bird->living = false;
+	// 播放音效
+	//MusicUtils::playMusic(_T("res/sound/hit.mp3"));
 	// 停止地面
 	ground->stop();
 	// 停止水管
 	pipes->stop();
+	// 隐藏得分
+	scoreImage->runAction(new ActionFadeOut(0.5f));
 	// 闪动白屏
-	auto white = ImageLoader::getImage(_T("white"));
-	white->stretch(App::getWidth(), App::getHeight());
-	auto whiteSprite = new Sprite(white);
-	whiteSprite->setOpacity(0);
-	whiteSprite->addAction(new ActionTwo(new ActionFadeIn(0.1f), new ActionFadeOut(0.1f)));
-	this->add(whiteSprite);
+	auto white = new Sprite(ImageLoader::getImage(_T("white")));
+	white->setOpacity(0);
+	white->setScale(16, 16);
+	white->addAction(new ActionTwo(new ActionFadeIn(0.1f), new ActionFadeOut(0.1f)));
+	this->add(white);
 }
 
 void GameScene::onGameOver()
 {
-	// 显示 GameOver 图片
-	auto gameover = ImageLoader::getImage(_T("text_game_over"));
-	gameover->setWindowCenterX();
-	gameover->setY(120);
-	// 显示得分板
-	auto panel = ImageLoader::getImage(_T("score_panel"));
-	panel->setWindowCenter();
-	// 显示重新开始按钮
-	auto restart = new ImageButton(ImageLoader::getImage(_T("button_restart")));
-	restart->setWindowCenterX();
-	restart->setClickedCallback([] {
-		// 按下重新开始，进入一个新的 GameScene
-		App::enterScene(new GameScene(), false);
-	});
-	// 按钮按下时
-	restart->setSelectCallback([=] {
-		restart->move(0, 5);
-	});
-	restart->setUnselectCallback([=] {
-		restart->move(0, -5);
-	});
-	restart->setY(330);
-	// 显示返回主菜单按钮
-	auto menu = new ImageButton(ImageLoader::getImage(_T("button_menu")));
-	menu->setWindowCenterX();
-	menu->setClickedCallback([] {
-		// 按下返回主菜单，返回上一个场景
-		App::backScene();
-	});
-	// 按钮按下时
-	menu->setSelectCallback([=] {
-		menu->move(0, 5);
-	});
-	menu->setUnselectCallback([=] {
-		menu->move(0, -5);
-	});
-	menu->setY(400);
-	// 合并为一个节点
-	auto all = new BatchNode();
-	all->add(gameover);
-	all->add(panel);
-	all->add(restart);
-	all->add(menu);
-	all->setY(App::getHeight());
-	this->add(all);
-	// 用Timer实现简单的移动动画
-	Timer::addTimer(_T("game_over"), [=] {
-		if (all->getY() > 0) {
-			all->move(0, -8);
-		}
-		else {
-			Timer::stopTimer(_T("game_over"));
-		}
-	});
+	this->add(new GameOverLayer(score));
 }

@@ -6,5 +6,6 @@ class StartScene :
 {
 public:
 	void init() override;
+	void onEnter() override;
 };
 
