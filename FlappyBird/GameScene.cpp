@@ -76,25 +76,20 @@ void GameScene::onStart()
 		// 判断小鸟是否和水管碰撞
 		if (bird->living) {
 			if (pipes->isCollisionWith(bird)) {
-				// 小鸟死亡
-				bird->living = false;
-				// 停止地面
-				ground->stop();
-				// 停止水管
-				pipes->stop();
+				this->onBirdDie();
 			}
 		}
 		// 若小鸟纵坐标小于 118，游戏结束
-		if (App::getHeight() - bird->getY() <= 140) {
+		if (App::getHeight() - bird->getY() <= 135) {
+			// 小鸟死亡
+			if (bird->living) {
+				this->onBirdDie();
+			}
 			// 游戏结束，停止这个定时器
 			Timer::stopTimer(_T("game_timer"));
 			// 让小鸟停止
-			bird->setY(App::getHeight() - 140);
+			bird->setY(App::getHeight() - 135);
 			bird->setStatus(0);
-			// 停止地面
-			ground->stop();
-			// 停止水管
-			pipes->stop();
 			// 显示游戏结束界面
 			this->onGameOver();
 		}
@@ -104,6 +99,23 @@ void GameScene::onStart()
 			bird->speed = 0;
 		}
 	});
+}
+
+void GameScene::onBirdDie()
+{
+	// 小鸟死亡
+	bird->living = false;
+	// 停止地面
+	ground->stop();
+	// 停止水管
+	pipes->stop();
+	// 闪动白屏
+	auto white = ImageLoader::getImage(_T("white"));
+	white->stretch(App::getWidth(), App::getHeight());
+	auto whiteSprite = new Sprite(white);
+	whiteSprite->setOpacity(0);
+	whiteSprite->addAction(new ActionTwo(new ActionFadeIn(0.1f), new ActionFadeOut(0.1f)));
+	this->add(whiteSprite);
 }
 
 void GameScene::onGameOver()
@@ -156,7 +168,7 @@ void GameScene::onGameOver()
 	// 用Timer实现简单的移动动画
 	Timer::addTimer(_T("game_over"), [=] {
 		if (all->getY() > 0) {
-			all->move(0, -5);
+			all->move(0, -8);
 		}
 		else {
 			Timer::stopTimer(_T("game_over"));

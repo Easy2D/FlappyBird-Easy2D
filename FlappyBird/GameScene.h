@@ -19,6 +19,7 @@ public:
 	void init();
 	void onClick();
 	void onStart();
+	void onBirdDie();
 	void onGameOver();
 };
 

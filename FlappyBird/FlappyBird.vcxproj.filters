@@ -63,6 +63,6 @@
     <ResourceCompile Include="FlappyBird.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="icon.ico" />
+    <Image Include="64.ico" />
   </ItemGroup>
 </Project>
