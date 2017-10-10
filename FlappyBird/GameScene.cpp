@@ -136,6 +136,9 @@ void GameScene::onBirdDie()
 	ground->stop();
 	// 停止水管
 	pipes->stop();
+	// 停止鼠标和按键监听
+	MouseMsg::stopListener(_T("mouse_click"));
+	KeyMsg::stopListener(_T("key_click"));
 	// 隐藏得分
 	scoreImage->runAction(new ActionFadeOut(0.5f));
 	// 闪动白屏

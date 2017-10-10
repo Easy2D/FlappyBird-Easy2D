@@ -55,11 +55,11 @@ void Pipes::addPipe()
 	// 创建上水管
 	auto pipe1 = new Sprite(ImageLoader::getImage(_T("pipe_above")));
 	pipe1->setY(pipeY - 60 - pipe1->getHeight());
-	this->addSprite(pipe1);
+	this->add(pipe1);
 	// 创建下水管
 	auto pipe2 = new Sprite(ImageLoader::getImage(_T("pipe_below")));
 	pipe2->setY(pipeY + 60);
-	this->addSprite(pipe2);
+	this->add(pipe2);
 	// 设置水管横坐标
 	if (number == 0) {
 		// 第一个水管在屏幕外130像素处

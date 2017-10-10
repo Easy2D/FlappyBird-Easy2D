@@ -6,11 +6,11 @@ Ground::Ground()
 {
 	auto ground1 = new Sprite(ImageLoader::getImage(_T("land")));
 	ground1->setPos(0, App::getHeight() - ground1->getHeight());
-	this->addSprite(ground1);
+	this->add(ground1);
 
 	auto ground2 = new Sprite(ImageLoader::getImage(_T("land")));
 	ground2->setPos(ground1->getWidth(), App::getHeight() - ground2->getHeight());
-	this->addSprite(ground2);
+	this->add(ground2);
 
 	Timer::addTimer(_T("ground_move"), [=] {
 		// “∆∂Øµÿ√Ê

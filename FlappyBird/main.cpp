@@ -5,7 +5,7 @@
 int main()
 {
 	App app;
-	app.createWindow(_T("Flappy Bird"), 288, 512);
+	app.createWindow(_T("FlappyBird"), 288, 512);
 	app.setAppName(_T("flappybird_nomango"));
 	if (ImageLoader::init())
 	{

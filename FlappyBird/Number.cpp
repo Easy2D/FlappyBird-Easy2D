@@ -29,7 +29,7 @@ void Number::setNumber(int number)
 	if (number == 0) {
 		auto zero = new Sprite(ImageLoader::getImage(_T("number_big_0")));
 		totalWidth = zero->getWidth();
-		this->addSprite(zero);
+		this->add(zero);
 	}
 	else {
 		TCHAR str[13];
@@ -42,7 +42,7 @@ void Number::setNumber(int number)
 			auto sprite = new Sprite(ImageLoader::getImage(str));
 			totalWidth += sprite->getWidth();
 			// 添加数字
-			this->addSprite(sprite);
+			this->add(sprite);
 		}
 	}
 
@@ -66,7 +66,7 @@ void Number::setLittleNumber(int number)
 	// 对数字 0 作单独处理
 	if (number == 0) {
 		auto zero = new Sprite(ImageLoader::getImage(_T("number_medium_0")));
-		this->addSprite(zero);
+		this->add(zero);
 	}
 	else {
 		TCHAR str[16];
@@ -78,7 +78,7 @@ void Number::setLittleNumber(int number)
 			wsprintf(str, _T("number_medium_%d"), temp);
 			auto sprite = new Sprite(ImageLoader::getImage(str));
 			// 添加数字
-			this->addSprite(sprite);
+			this->add(sprite);
 		}
 	}
 
