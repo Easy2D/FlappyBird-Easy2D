@@ -2,10 +2,10 @@
 #include <easy2d.h>
 
 class StartScene :
-	public Scene
+	public EScene
 {
 public:
-	void init() override;
+	StartScene();
 	void onEnter() override;
 };
 

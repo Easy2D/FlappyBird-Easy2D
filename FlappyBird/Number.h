@@ -2,7 +2,7 @@
 #include "easy2d.h"
 
 class Number :
-	public BatchSprite
+	public ESprite
 {
 public:
 	Number();

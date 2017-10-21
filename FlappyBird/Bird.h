@@ -2,11 +2,10 @@
 #include "easy2d.h"
 
 class Bird :
-	public Sprite
+	public ESprite
 {
 public:
 	Bird();
-	~Bird();
 
 	// 设置小鸟状态
 	// 0 代表完全静止，1 代表上下晃动
@@ -15,7 +14,9 @@ public:
 public:
 	bool living = true;
 	float speed = 0;
-	Action * fly;
-	ActionFrames * frames;
+	EAction * fly;
+	EAnimation * animation;
+	EAction * rotate;
+	EAction * temp;
 };
 

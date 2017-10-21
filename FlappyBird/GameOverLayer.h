@@ -3,14 +3,15 @@
 #include "Number.h"
 
 class GameOverLayer :
-	public Layer
+	public ENode
 {
 public:
 	GameOverLayer(int score);
-	~GameOverLayer();
 
+	void initPanel();
+	void initButtons();
 	void showScore();
-	Image* getModal();
+	ESpriteFrame* getModal();
 
 public:
 	int score = 0;

@@ -2,7 +2,7 @@
 #include "easy2d.h"
 
 class Ground :
-	public BatchSprite
+	public ESprite
 {
 public:
 	Ground();

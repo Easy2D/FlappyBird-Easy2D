@@ -76,5 +76,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="64.ico" />
+    <Image Include="res\atlas.png" />
   </ItemGroup>
 </Project>

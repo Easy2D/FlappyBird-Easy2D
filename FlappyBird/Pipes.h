@@ -2,7 +2,7 @@
 #include "easy2d.h"
 
 class Pipes :
-	public BatchSprite
+	public ESprite
 {
 public:
 	Pipes();
@@ -14,6 +14,6 @@ public:
 
 public:
 	int number = 0;
-	Sprite* pipes[3][2];
+	ESprite* pipes[3][2];
 };
 

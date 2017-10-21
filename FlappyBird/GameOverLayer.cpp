@@ -1,175 +1,174 @@
 #include "GameOverLayer.h"
 #include "GameScene.h"
 #include "ImageLoader.h"
+#include <shellapi.h>
 
 
 GameOverLayer::GameOverLayer(int score)
 {
-	// 显示 GameOver 图片
-	auto gameover = ImageLoader::getImage(_T("text_game_over"));
-	gameover->setWindowCenterX();
-	gameover->setY(120);
-	// 显示得分板
-	auto panel = ImageLoader::getImage(_T("score_panel"));
-	panel->setWindowCenter();
-	// 显示重新开始按钮
-	auto restart = new ImageButton(ImageLoader::getImage(_T("button_restart")));
-	restart->setWindowCenterX();
-	restart->setY(330);
-	restart->setClickedCallback([] {
-		// 按下重新开始，进入一个新的 GameScene
-		App::enterScene(new GameScene(), false);
-	});
-	// 按钮按下时，向下移动5像素
-	restart->setSelectCallback([=] {
-		restart->move(0, 5);
-	});
-	restart->setUnselectCallback([=] {
-		restart->move(0, -5);
-	});
-	// 显示返回主菜单按钮
-	auto menu = new ImageButton(ImageLoader::getImage(_T("button_menu")));
-	menu->setWindowCenterX();
-	menu->setY(400);
-	menu->setClickedCallback([] {
-		// 按下返回主菜单，返回上一个场景
-		App::backScene();
-	});
-	// 按钮按下时，向下移动5像素
-	menu->setSelectCallback([=] {
-		menu->move(0, 5);
-	});
-	menu->setUnselectCallback([=] {
-		menu->move(0, -5);
-	});
-	// 显示链接按钮
-	auto share = new ImageButton(ImageLoader::getImage(_T("button_share")));
-	share->setWindowCenterX();
-	share->setY(435);
-	share->setClickedCallback([] {
-		//MusicUtils::playMusic(_T("res/sound/MenuClick.mp3"));
-		ShellExecute(NULL, _T("open"), _T("https://gitee.com/werelone/FlappyBird"), NULL, NULL, SW_SHOWNORMAL);
-	});
-	// 按钮按下时，向下移动5像素
-	share->setSelectCallback([=] {
-		share->move(0, 5);
-	});
-	share->setUnselectCallback([=] {
-		share->move(0, -5);
-	});
-	// 合并为一个节点
-	auto all = new BatchNode();
-	all->add(gameover);
-	all->add(panel);
-	all->add(restart);
-	all->add(menu);
-	all->add(share);
-	this->add(all);
-	// 将节点整体移到屏幕下方
-	all->setY(App::getHeight());
-	// 用Timer实现简单的移动动画
-	Timer::addTimer(_T("game_over"), [=] {
-		if (all->getY() > 0) {
-			all->move(0, -8);
-		}
-		else {
-			// 动画结束后，显示得分
-			showScore();
-			Timer::stopTimer(_T("game_over"));
-		}
-	});
-	
 	// 获取得分和最高分
 	this->score = score;
-	this->bestScore = FileUtils::getInt(_T("best_score"), 0);
+	this->bestScore = EFileUtils::getInt(L"best_score", 0);
+	// 整体居中
+	this->setPosX(EApp::getWidth() / 2);
+	// 将节点整体移到屏幕下方
+	this->setPosY(EApp::getHeight());
+	// 显示 GameOver 图片
+	auto gameover = new ESprite(ImageLoader::getImage(L"text_game_over"));
+	gameover->setAnchor(0.5f, 0);
+	gameover->setPosY(120);
+	this->addChild(gameover);
+	// 加载得分板
+	initPanel();
+	// 加载按钮
+	initButtons();
+	
+	// 位移动画
+	auto actionMove = new EActionMoveBy(1, EVec(0, -EApp::getHeight()));
+	auto actionShowScore = new EActionCallback([=] {
+		// 动画结束后，显示得分
+		this->showScore();
+	});
+	this->runAction(new EActionTwo(actionMove, actionShowScore));
+}
+
+void GameOverLayer::initPanel()
+{
+	// 显示得分板
+	auto panel = new ESprite(ImageLoader::getImage(L"score_panel"));
+	panel->setAnchor(0.5f, 0.5f);
+	panel->setPosY(EApp::getHeight() / 2);
+	this->addChild(panel);
 	// 保存最高分
 	if (score > bestScore) {
-		FileUtils::saveInt(_T("best_score"), score);
+		EFileUtils::saveInt(L"best_score", score);
 		bestScore = score;
 		// 添加 new 图标
-		auto newImage = ImageLoader::getImage(_T("new"));
-		newImage->setPos(155, 269);
-		all->add(newImage);
+		auto newImage = new ESprite(ImageLoader::getImage(L"new"));
+		newImage->setPos(145, 85);
+		panel->addChild(newImage);
 	}
 	// 添加奖牌
-	auto modal = getModal();
-	if (modal) {
-		modal->setPos(57, 237);
-		all->add(modal);
+	auto modalFrame = getModal();
+	if (modalFrame) {
+		auto modal = new ESprite(modalFrame);
+		modal->setPos(54, 67);
+		panel->addChild(modal);
 		// 添加闪光
-		auto blink = new Sprite(ImageLoader::getImage(_T("blink_00")));
+		auto blink = new ESprite(ImageLoader::getImage(L"blink_00"));
 		// 闪光帧动画
-		auto frames = new ActionFrames(130);
-		frames->addFrame(ImageLoader::getImage(_T("blink_00")));
-		frames->addFrame(ImageLoader::getImage(_T("blink_01")));
-		frames->addFrame(ImageLoader::getImage(_T("blink_02")));
-		frames->addFrame(ImageLoader::getImage(_T("blink_01")));
-		frames->addFrame(ImageLoader::getImage(_T("blink_00")));
+		auto frames = new EAnimation(130);
+		frames->addFrame(ImageLoader::getImage(L"blink_00"));
+		frames->addFrame(ImageLoader::getImage(L"blink_01"));
+		frames->addFrame(ImageLoader::getImage(L"blink_02"));
+		frames->addFrame(ImageLoader::getImage(L"blink_01"));
+		frames->addFrame(ImageLoader::getImage(L"blink_00"));
 		// 执行帧动画前，随机闪光的位置
-		auto action = new ActionTwo(new ActionCallback([=] {
-			int x = random(modal->getX(), modal->getX() + modal->getWidth());
-			int y = random(modal->getY(), modal->getY() + modal->getHeight());
+		auto action = new EActionTwo(new EActionCallback([=] {
+			float x = ERandom::between(0, modal->getWidth());
+			float y = ERandom::between(0, modal->getHeight());
 			blink->setPos(x, y);
 		}), frames);
 		// 执行循环动画
-		blink->runAction(new ActionNeverStop(action));
-		all->add(blink);
+		blink->runAction(new EActionLoop(action));
+		modal->addChild(blink);
 	}
 	// 显示得分
 	scoreImage = new Number();
-	scoreImage->setDisplay(false);
-	scoreImage->setPos(235, 228);
+	scoreImage->setPos(210, 35);
 	scoreImage->setLittleNumber(0);
-	this->add(scoreImage);
+	panel->addChild(scoreImage);
 	// 显示最高分
 	bestScoreImage = new Number();
-	bestScoreImage->setDisplay(false);
-	bestScoreImage->setPos(235, 269);
+	bestScoreImage->setPos(210, 76);
 	bestScoreImage->setLittleNumber(bestScore);
-	this->add(bestScoreImage);
-	// 播放音效
-	//MusicUtils::playMusic(_T("res/sound/swoosh.mp3"));
+	panel->addChild(bestScoreImage);
 }
 
-
-GameOverLayer::~GameOverLayer()
+void GameOverLayer::initButtons()
 {
+	// 显示重新开始按钮
+	auto restartBtnNormal = new ESprite(ImageLoader::getImage(L"button_restart"));
+	restartBtnNormal->setAnchor(0.5f, 0.5f);
+	auto restartBtnSelected = new ESprite(ImageLoader::getImage(L"button_restart"));
+	restartBtnSelected->setAnchor(0.5f, 0.5f);
+	restartBtnSelected->setPosY(5);
+	auto restart = new EButton(
+		restartBtnNormal,
+		restartBtnSelected,
+		[] {
+		// 按下重新开始，进入一个新的 GameScene
+		EApp::enterScene(new GameScene(), new ETransitionFade(0.3f, 0.3f), false);
+	});
+	restart->setAnchorX(0.5f);
+	restart->setPosY(330);
+	this->addChild(restart);
+	// 显示返回主菜单按钮
+	auto menuBtnNormal = new ESprite(ImageLoader::getImage(L"button_menu"));
+	menuBtnNormal->setAnchor(0.5f, 0.5f);
+	auto menuBtnSelected = new ESprite(ImageLoader::getImage(L"button_menu"));
+	menuBtnSelected->setAnchor(0.5f, 0.5f);
+	menuBtnSelected->setPosY(5);
+	auto menu = new EButton(
+		menuBtnNormal,
+		menuBtnSelected,
+		[] {
+		// 按下返回主菜单，返回上一个场景
+		EApp::backScene(new ETransitionFade(0.3f, 0.3f));
+	});
+	menu->setAnchorX(0.5f);
+	menu->setPosY(400);
+	this->addChild(menu);
+	// 显示链接按钮
+	auto shareBtnNormal = new ESprite(ImageLoader::getImage(L"button_share"));
+	shareBtnNormal->setAnchor(0.5f, 0.5f);
+	auto shareBtnSelected = new ESprite(ImageLoader::getImage(L"button_share"));
+	shareBtnSelected->setAnchor(0.5f, 0.5f);
+	shareBtnSelected->setPosY(5);
+	auto share = new EButton(
+		shareBtnNormal,
+		shareBtnSelected,
+		[] {
+		//MusicUtils::playMusic(_T("res/sound/MenuClick.mp3"));
+		ShellExecute(NULL, L"open", L"https://gitee.com/werelone/FlappyBird", NULL, NULL, SW_SHOWNORMAL);
+	});
+	share->setAnchorX(0.5f);
+	share->setPosY(435);
+	this->addChild(share);
 }
 
 void GameOverLayer::showScore()
 {
-	// 显示得分、最高分和奖牌
-	scoreImage->setDisplay(true);
-	bestScoreImage->setDisplay(true);
 	// 计算切换数字的时间间隔，最长1200毫秒显示完动画
-	UINT delay = (score > 12) ? UINT(1200.0f / score) : 100;
+	LONGLONG delay = (score > 12) ? LONGLONG(1200.0f / score) : 100;
 	// 得分动画
-	Timer::addTimer(_T("show_score"), delay, [=] {
-		if (scoreImage->getNumber() < score) {
-			// 切换一个数字
-			scoreImage->setLittleNumber(scoreImage->getNumber() + 1);
-		}
-		else {
-			Timer::stopTimer(_T("show_score"));
-		}
-	});
+	auto timer = new ETimer(
+		[=](int times) {
+			// 得分上的数字变化
+			scoreImage->setLittleNumber(times + 1);
+		}, 
+		score,	// 执行 score 次
+		delay,	// 每次执行间隔时间
+		true	// 立即执行
+	);
+	timer->bindWith(this);
 }
 
-Image* GameOverLayer::getModal()
+ESpriteFrame* GameOverLayer::getModal()
 {
 	if (score < 10) {
 		return nullptr;
 	}
 	else if (score >= 10 && score < 20) {
-		return ImageLoader::getImage(_T("medals_0"));	// 铜牌
+		return ImageLoader::getImage(L"medals_0");	// 铜牌
 	}
 	else if (score >= 20 && score < 30) {
-		return ImageLoader::getImage(_T("medals_1"));	// 银牌
+		return ImageLoader::getImage(L"medals_1");	// 银牌
 	}
 	else if (score >= 30 && score < 50) {
-		return ImageLoader::getImage(_T("medals_2"));	// 金牌
+		return ImageLoader::getImage(L"medals_2");	// 金牌
 	}
 	else {
-		return ImageLoader::getImage(_T("medals_3"));	// 钻石奖牌
+		return ImageLoader::getImage(L"medals_3");	// 钻石奖牌
 	}
 }

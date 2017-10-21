@@ -6,7 +6,7 @@
 #include "Number.h"
 
 class GameScene :
-	public Scene
+	public EScene
 {
 protected:
 	bool m_bStart = false;
@@ -15,11 +15,11 @@ protected:
 	Ground* ground;
 	Pipes*  pipes;
 	Number* scoreImage;
-	Sprite* ready;
-	Sprite* tutorial;
+	ESprite* ready;
+	ESprite* tutorial;
 
 public:
-	void init() override;
+	GameScene();
 	void onEnter() override;
 	void onClick();
 	void onStart();

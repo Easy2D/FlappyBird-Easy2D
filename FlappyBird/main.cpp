@@ -1,16 +1,32 @@
 #include <easy2d.h>
 #include "SplashScene.h"
 #include "ImageLoader.h"
+#include "resource.h"
 
-int main()
+int WINAPI WinMain(
+	HINSTANCE hInstance,
+	HINSTANCE hPrevInstance,
+	LPSTR lpCmdLine,
+	int nCmdShow
+)
 {
-	App app;
-	app.createWindow(_T("FlappyBird"), 288, 512);
-	app.setAppName(_T("flappybird_nomango"));
-	if (ImageLoader::init())
+	EApp app;
+	// 创建窗口样式
+	EWindowStyle wStyle((LPCTSTR)IDI_ICON1);
+	// 初始化窗口
+	if (app.init(L"FlappyBird", 288, 512, wStyle))
 	{
-		app.enterScene(new SplashScene());
-		return app.run();
+		// 设置 AppName （用于保存得分）
+		app.setAppName(L"flappybird_nomango");
+		// 加载图片
+		ImageLoader::init();
+		// 进入 Splash 场景
+		app.enterScene(
+			new SplashScene(),
+			new ETransitionScaleEmerge(0.3f, ETransitionScaleEmerge::ENTER)
+		);
+		// 运行游戏
+		app.run();
 	}
 	return 0;
 }

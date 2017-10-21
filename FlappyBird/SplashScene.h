@@ -2,8 +2,8 @@
 #include <easy2d.h>
 
 class SplashScene :
-	public Scene
+	public EScene
 {
 public:
-	void init() override;
+	SplashScene();
 };
