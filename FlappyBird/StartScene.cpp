@@ -33,7 +33,7 @@ StartScene::StartScene()
 		startBtnSelected,
 		[] {
 		// 按下开始按钮，进入 Game 场景
-		EApp::enterScene(new GameScene(), new ETransitionMove(0.5f, ETransitionMove::LEFT));
+		EApp::enterScene(new GameScene(), new ETransitionFade(0.3f, 0.3f));
 	});
 	startBtn->setPosX(EApp::getWidth() / 2);
 	startBtn->setPosY(EApp::getHeight() - startBtnNormal->getHeight() - 100);

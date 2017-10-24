@@ -101,7 +101,7 @@ void GameOverLayer::initButtons()
 		EApp::enterScene(new GameScene(), new ETransitionFade(0.3f, 0.3f), false);
 	});
 	restart->setAnchorX(0.5f);
-	restart->setPosY(330);
+	restart->setPosY(360);
 	this->addChild(restart);
 	// 显示返回主菜单按钮
 	auto menuBtnNormal = new ESprite(ImageLoader::getImage(L"button_menu"));
@@ -117,7 +117,7 @@ void GameOverLayer::initButtons()
 		EApp::backScene(new ETransitionFade(0.3f, 0.3f));
 	});
 	menu->setAnchorX(0.5f);
-	menu->setPosY(400);
+	menu->setPosY(420);
 	this->addChild(menu);
 	// 显示链接按钮
 	auto shareBtnNormal = new ESprite(ImageLoader::getImage(L"button_share"));
@@ -133,7 +133,7 @@ void GameOverLayer::initButtons()
 		ShellExecute(NULL, L"open", L"https://gitee.com/werelone/FlappyBird", NULL, NULL, SW_SHOWNORMAL);
 	});
 	share->setAnchorX(0.5f);
-	share->setPosY(435);
+	share->setPosY(455);
 	this->addChild(share);
 }
 

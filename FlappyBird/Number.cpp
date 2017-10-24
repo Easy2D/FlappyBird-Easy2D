@@ -52,7 +52,7 @@ void Number::setNumber(int number)
 	for (auto child : this->getChildren()) {
 		child->setAnchor(0, 0);
 		temp -= child->getWidth();
-		child->move(temp, 0);
+		child->setPos(temp, 0);
 	}
 }
 
@@ -89,6 +89,6 @@ void Number::setLittleNumber(int number)
 	for (auto child : this->getChildren()) {
 		child->setAnchor(0, 0);
 		temp -= child->getWidth();
-		child->move(temp, 0);
+		child->setPos(temp, 0);
 	}
 }
