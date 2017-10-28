@@ -1,11 +1,11 @@
 #include "GameScene.h"
-#include "ImageLoader.h"
+#include "ResLoader.h"
 #include "GameOverLayer.h"
 
 GameScene::GameScene()
 {
 	// 添加背景
-	auto background = new ESprite(ImageLoader::getImage(L"bg_day"));
+	auto background = new ESprite(ResLoader::getImage(L"bg_day"));
 	// 设置背景锚点为左上角
 	background->setAnchor(0, 0);
 	this->add(background);
@@ -25,11 +25,11 @@ GameScene::GameScene()
 	scoreImage->setNumber(0);
 	this->add(scoreImage);
 	// 添加 ready 图片
-	ready = new ESprite(ImageLoader::getImage(L"text_ready"));
+	ready = new ESprite(ResLoader::getImage(L"text_ready"));
 	ready->setPos(EApp::getWidth() / 2, EApp::getHeight() / 2 - 70);
 	this->add(ready);
 	// 添加教程图片
-	tutorial = new ESprite(ImageLoader::getImage(L"tutorial"));
+	tutorial = new ESprite(ResLoader::getImage(L"tutorial"));
 	tutorial->setPos(EApp::getWidth() / 2, EApp::getHeight() / 2 + 30);
 	this->add(tutorial);
 
@@ -50,12 +50,22 @@ GameScene::GameScene()
 	});
 	// 绑定监听器
 	keyboardListener->bindWith(this);
+
+	// 添加碰撞监听器
+	auto collisionListener = new ECollisionListener([=](ENode*, ENode*) {
+		// 只要有碰撞产生，就说明小鸟死亡
+		if (bird->living) {
+			this->onBirdDie();
+		}
+	});
+	// 绑定监听器
+	collisionListener->bindWith(this);
 }
 
 void GameScene::onEnter()
 {
 	// 进入场景时播放音效
-	//MusicUtils::playMusic(_T("res/sound/swoosh.mp3"));
+	ResLoader::playMusic(L"MUSIC_SWOOSH");
 }
 
 void GameScene::onClick()
@@ -71,7 +81,7 @@ void GameScene::onClick()
 		// 设置小鸟状态为 3
 		bird->setStatus(3);
 		// 播放音效
-		//MusicUtils::playMusic(_T("res/sound/fly.mp3"));
+		ResLoader::playMusic(L"MUSIC_FLY");
 	}
 }
 
@@ -99,25 +109,19 @@ void GameScene::onStart()
 				// 加分
 				score++;
 				scoreImage->setNumber(score);
+				// 播放音效
+				ResLoader::playMusic(L"MUSIC_POINT");
 			}
-		}
-		// 判断小鸟是否和水管碰撞
-		if (bird->living) {
-			/*if (pipes->isCollisionWith(bird)) {
-				this->onBirdDie();
-			}*/
 		}
 		// 若小鸟纵坐标小于地面，游戏结束
 		if (EApp::getHeight() - bird->getPosY() <= 123) {
-			// 小鸟死亡
-			if (bird->living) {
-				this->onBirdDie();
-			}
 			// 游戏结束，停止这个定时器
 			ETimerManager::stopAllTimers();
 			// 让小鸟停止
 			bird->setPosY(EApp::getHeight() - 123);
 			bird->setStatus(0);
+			// 让小鸟脸朝下
+			bird->setRotation(90);
 			// 显示游戏结束界面
 			this->onGameOver();
 		}
@@ -134,21 +138,21 @@ void GameScene::onBirdDie()
 {
 	// 小鸟死亡
 	bird->living = false;
-	// 让小鸟脸朝下
-	bird->setRotation(90);
 	// 播放音效
-	//MusicUtils::playMusic(_T("res/sound/hit.mp3"));
+	ResLoader::playMusic(L"MUSIC_HIT");
 	// 停止地面
 	ground->stop();
 	// 停止水管
 	pipes->stop();
 	// 停止鼠标和按键监听
-	EMsgManager::stopAllMouseListenersBindedWith(this);
-	EMsgManager::stopAllKeyboardListenersBindedWith(this);
+	EMsgManager::stopAllMouseListeners();
+	EMsgManager::stopAllKeyboardListeners();
+	// 停止碰撞监听
+	EPhysicsManager::stopAllListeners();
 	// 隐藏得分
 	scoreImage->runAction(new EActionFadeOut(0.5f));
 	// 闪动白屏
-	auto white = new ESprite(ImageLoader::getImage(L"white"));
+	auto white = new ESprite(ResLoader::getImage(L"white"));
 	white->setAnchor(0, 0);
 	white->setOpacity(0);
 	white->setScale(16, 16);

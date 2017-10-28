@@ -1,21 +1,28 @@
 #include "Ground.h"
-#include "ImageLoader.h"
+#include "ResLoader.h"
 
 
 Ground::Ground()
 {
-	auto ground1 = new ESprite(ImageLoader::getImage(L"land"));
+	auto ground1 = new ESprite(ResLoader::getImage(L"land"));
 	// 地面锚点设置在左下角
 	ground1->setAnchor(0, 1);
 	// 将地面放在屏幕底部
 	ground1->setPos(0, EApp::getHeight());
 	this->addChild(ground1);
+	// 为地面添加物理矩形
+	auto rt1 = new ERectangle(0, -ground1->getHeight(), ground1->getWidth(), ground1->getHeight());
+	ground1->setGeometry(rt1);
 
 	// 创建一块相同的地面，用于控制循环运动
-	auto ground2 = new ESprite(ImageLoader::getImage(L"land"));
+	auto ground2 = new ESprite(ResLoader::getImage(L"land"));
 	ground2->setAnchor(0, 1);
+	// 将地面放在屏幕底部
 	ground2->setPos(ground1->getWidth(), EApp::getHeight());
 	this->addChild(ground2);
+	// 为地面添加物理矩形
+	auto rt2 = new ERectangle(0, -ground2->getHeight(), ground2->getWidth(), ground2->getHeight());
+	ground2->setGeometry(rt2);
 
 	// 创建定时器，移动地面
 	auto timer = new ETimer([=](int) {

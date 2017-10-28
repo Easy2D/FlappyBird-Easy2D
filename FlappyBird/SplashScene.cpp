@@ -1,11 +1,11 @@
 #include "SplashScene.h"
-#include "ImageLoader.h"
+#include "ResLoader.h"
 #include "StartScene.h"
 
 
 SplashScene::SplashScene()
 {
-	auto splash = new ESprite(ImageLoader::getImage(L"splash"));
+	auto splash = new ESprite(ResLoader::getImage(L"splash"));
 	// 设置图片居中显示
 	splash->setPos(EApp::getWidth() / 2, EApp::getHeight() / 2);
 	// 创建连续动画

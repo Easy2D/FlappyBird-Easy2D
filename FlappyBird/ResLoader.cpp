@@ -1,4 +1,4 @@
-#include "ImageLoader.h"
+#include "ResLoader.h"
 #include <map>
 
 struct IMAGE_INFO
@@ -10,8 +10,19 @@ std::map<EString, IMAGE_INFO> m_Images;
 extern EString AtlasData;
 
 
-void ImageLoader::init()
+void ResLoader::init()
 {
+	// 预加载音效
+	EMusicUtils::preloadMusic(L"MUSIC_FLY", L"WAVE", L"wav");
+	EMusicUtils::preloadMusic(L"MUSIC_HIT", L"WAVE", L"wav");
+	EMusicUtils::preloadMusic(L"MUSIC_MENU_CLICK", L"WAVE", L"wav");
+	EMusicUtils::preloadMusic(L"MUSIC_POINT", L"WAVE", L"wav");
+	EMusicUtils::preloadMusic(L"MUSIC_SWOOSH", L"WAVE", L"wav");
+	EMusicUtils::preloadMusic(L"res/sound/fly.wav");
+
+	// 预加载图片
+	ETexture::preload(L"IDB_PNG", L"IMAGE");
+	// 加载图片格式信息
 	int offset = 0;
 	int count = 0;
 	// 读取数据
@@ -35,7 +46,12 @@ void ImageLoader::init()
 	}
 }
 
-ESpriteFrame * ImageLoader::getImage(EString imageName)
+void ResLoader::playMusic(const EString & musicName)
+{
+	EMusicUtils::playMusic(musicName, L"WAVE", L"wav");
+}
+
+ESpriteFrame * ResLoader::getImage(const EString & imageName)
 {
 	IMAGE_INFO info = m_Images.at(imageName);
 	return new ESpriteFrame(L"IDB_PNG", L"IMAGE", info.x, info.y, info.width, info.height);

@@ -1,6 +1,6 @@
 #include <easy2d.h>
 #include "SplashScene.h"
-#include "ImageLoader.h"
+#include "ResLoader.h"
 #include "resource.h"
 
 int WINAPI WinMain(
@@ -19,7 +19,7 @@ int WINAPI WinMain(
 		// 设置 AppName （用于保存得分）
 		app.setAppName(L"flappybird_nomango");
 		// 加载图片
-		ImageLoader::init();
+		ResLoader::init();
 		// 进入 Splash 场景
 		app.enterScene(
 			new SplashScene(),

@@ -151,7 +151,7 @@
     <ClCompile Include="GameOverLayer.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Ground.cpp" />
-    <ClCompile Include="ImageLoader.cpp" />
+    <ClCompile Include="ResLoader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Number.cpp" />
     <ClCompile Include="Pipes.cpp" />
@@ -163,7 +163,7 @@
     <ClInclude Include="GameOverLayer.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Ground.h" />
-    <ClInclude Include="ImageLoader.h" />
+    <ClInclude Include="ResLoader.h" />
     <ClInclude Include="Number.h" />
     <ClInclude Include="Pipes.h" />
     <ClInclude Include="resource.h" />
@@ -176,6 +176,13 @@
   <ItemGroup>
     <Image Include="64.ico" />
     <Image Include="res\atlas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="res\sound\fly.wav" />
+    <Media Include="res\sound\hit.wav" />
+    <Media Include="res\sound\MenuClick.wav" />
+    <Media Include="res\sound\point.wav" />
+    <Media Include="res\sound\swoosh.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

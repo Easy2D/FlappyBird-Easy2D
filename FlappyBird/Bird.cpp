@@ -1,5 +1,5 @@
 #include "Bird.h"
-#include "ImageLoader.h"
+#include "ResLoader.h"
 
 
 Bird::Bird()
@@ -12,27 +12,27 @@ Bird::Bird()
 	// 为不同的小鸟加载不同的帧动画
 	if (mode == 0)
 	{
-		this->loadFrom(ImageLoader::getImage(L"bird0_0"));
-		animation->addFrame(ImageLoader::getImage(L"bird0_0"));
-		animation->addFrame(ImageLoader::getImage(L"bird0_1"));
-		animation->addFrame(ImageLoader::getImage(L"bird0_2"));
-		animation->addFrame(ImageLoader::getImage(L"bird0_1"));
+		this->loadFrom(ResLoader::getImage(L"bird0_0"));
+		animation->addFrame(ResLoader::getImage(L"bird0_0"));
+		animation->addFrame(ResLoader::getImage(L"bird0_1"));
+		animation->addFrame(ResLoader::getImage(L"bird0_2"));
+		animation->addFrame(ResLoader::getImage(L"bird0_1"));
 	}
 	else if (mode == 1)
 	{
-		this->loadFrom(ImageLoader::getImage(L"bird1_0"));
-		animation->addFrame(ImageLoader::getImage(L"bird1_0"));
-		animation->addFrame(ImageLoader::getImage(L"bird1_1"));
-		animation->addFrame(ImageLoader::getImage(L"bird1_2"));
-		animation->addFrame(ImageLoader::getImage(L"bird1_1"));
+		this->loadFrom(ResLoader::getImage(L"bird1_0"));
+		animation->addFrame(ResLoader::getImage(L"bird1_0"));
+		animation->addFrame(ResLoader::getImage(L"bird1_1"));
+		animation->addFrame(ResLoader::getImage(L"bird1_2"));
+		animation->addFrame(ResLoader::getImage(L"bird1_1"));
 	}
 	else
 	{
-		this->loadFrom(ImageLoader::getImage(L"bird2_0"));
-		animation->addFrame(ImageLoader::getImage(L"bird2_0"));
-		animation->addFrame(ImageLoader::getImage(L"bird2_1"));
-		animation->addFrame(ImageLoader::getImage(L"bird2_2"));
-		animation->addFrame(ImageLoader::getImage(L"bird2_1"));
+		this->loadFrom(ResLoader::getImage(L"bird2_0"));
+		animation->addFrame(ResLoader::getImage(L"bird2_0"));
+		animation->addFrame(ResLoader::getImage(L"bird2_1"));
+		animation->addFrame(ResLoader::getImage(L"bird2_2"));
+		animation->addFrame(ResLoader::getImage(L"bird2_1"));
 	}
 
 	// 初始化飞翔动画
@@ -42,7 +42,12 @@ Bird::Bird()
 	// 初始化旋转动画
 	rotate = new EActionSequence(3, new EActionRotateTo(0.2f, -15), new EActionDelay(0.2f), new EActionRotateTo(0.5f, 90));
 
+	// 设置初始化状态为 1
 	this->setStatus(1);
+
+	// 为小鸟添加物理圆形
+	auto circle = new ECircle(EPoint(0, 0), this->getRealWidth() / 2);
+	this->setGeometry(circle);
 }
 
 void Bird::setStatus(int status)

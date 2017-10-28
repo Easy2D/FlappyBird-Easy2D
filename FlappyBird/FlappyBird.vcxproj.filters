@@ -10,6 +10,9 @@
     <Filter Include="场景">
       <UniqueIdentifier>{b4eb7a7d-f7ca-4401-bee4-aa383871a37d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="资源">
+      <UniqueIdentifier>{ea3a53d3-e61e-4102-a444-69aac10d0271}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameScene.cpp">
@@ -20,9 +23,6 @@
     </ClCompile>
     <ClCompile Include="StartScene.cpp">
       <Filter>场景</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageLoader.cpp">
-      <Filter>工具</Filter>
     </ClCompile>
     <ClCompile Include="Bird.cpp">
       <Filter>对象</Filter>
@@ -40,6 +40,9 @@
     <ClCompile Include="GameOverLayer.cpp">
       <Filter>场景</Filter>
     </ClCompile>
+    <ClCompile Include="ResLoader.cpp">
+      <Filter>工具</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameScene.h">
@@ -51,9 +54,6 @@
     <ClInclude Include="StartScene.h">
       <Filter>场景</Filter>
     </ClInclude>
-    <ClInclude Include="ImageLoader.h">
-      <Filter>工具</Filter>
-    </ClInclude>
     <ClInclude Include="Bird.h">
       <Filter>对象</Filter>
     </ClInclude>
@@ -63,19 +63,45 @@
     <ClInclude Include="Pipes.h">
       <Filter>对象</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="Number.h">
       <Filter>对象</Filter>
     </ClInclude>
     <ClInclude Include="GameOverLayer.h">
       <Filter>场景</Filter>
     </ClInclude>
+    <ClInclude Include="ResLoader.h">
+      <Filter>工具</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="FlappyBird.rc" />
+    <Image Include="res\atlas.png">
+      <Filter>资源</Filter>
+    </Image>
+    <Image Include="64.ico">
+      <Filter>资源</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="64.ico" />
-    <Image Include="res\atlas.png" />
+    <Media Include="res\sound\swoosh.wav">
+      <Filter>资源</Filter>
+    </Media>
+    <Media Include="res\sound\point.wav">
+      <Filter>资源</Filter>
+    </Media>
+    <Media Include="res\sound\MenuClick.wav">
+      <Filter>资源</Filter>
+    </Media>
+    <Media Include="res\sound\hit.wav">
+      <Filter>资源</Filter>
+    </Media>
+    <Media Include="res\sound\fly.wav">
+      <Filter>资源</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="FlappyBird.rc">
+      <Filter>资源</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

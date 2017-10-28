@@ -1,5 +1,5 @@
 #include "Pipes.h"
-#include "ImageLoader.h"
+#include "ResLoader.h"
 
 
 Pipes::Pipes()
@@ -52,17 +52,23 @@ void Pipes::addPipe()
 	// 水管最大数量为 3
 	if (this->number == 3) return;
 	// 随机水管位置
-	float pipeY = ERandom::between(100, EApp::getHeight() - ImageLoader::getImage(L"land")->getHeight() - 100);
+	float pipeY = ERandom::between(100, EApp::getHeight() - ResLoader::getImage(L"land")->getHeight() - 100);
 	// 创建上水管
-	auto pipe1 = new ESprite(ImageLoader::getImage(L"pipe_above"));
+	auto pipe1 = new ESprite(ResLoader::getImage(L"pipe_above"));
 	pipe1->setAnchor(0.5f, 1);
 	pipe1->setPosY(pipeY - 60);
 	this->addChild(pipe1);
+	// 为上水管添加物理矩形
+	//auto rt1 = new ERectangle(pipe1);
+	//pipe1->setGeometry(rt1);
 	// 创建下水管
-	auto pipe2 = new ESprite(ImageLoader::getImage(L"pipe_below"));
+	auto pipe2 = new ESprite(ResLoader::getImage(L"pipe_below"));
 	pipe2->setAnchor(0.5f, 0);
 	pipe2->setPosY(pipeY + 60);
 	this->addChild(pipe2);
+	// 为下水管添加物理矩形
+	//auto rt2 = new ERectangle(pipe2);
+	//pipe2->setGeometry(rt2);
 	// 设置水管横坐标
 	if (number == 0) {
 		// 第一个水管在屏幕外130像素处
