@@ -11,8 +11,11 @@ int WINAPI WinMain(
 )
 {
 	EApp app;
-	// 创建窗口样式
-	EWindowStyle wStyle((LPCTSTR)IDI_ICON1);
+
+	// 设置程序图标
+	EWindowStyle wStyle;
+	wStyle.m_pIconID = (LPCTSTR)IDI_ICON1;
+
 	// 初始化窗口
 	if (app.init(L"FlappyBird", 288, 512, wStyle))
 	{

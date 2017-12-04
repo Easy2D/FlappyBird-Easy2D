@@ -15,7 +15,7 @@ GameOverLayer::GameOverLayer(int score)
 	this->setPosY(EApp::getHeight());
 	// 显示 GameOver 图片
 	auto gameover = new ESprite(ResLoader::getImage(L"text_game_over"));
-	gameover->setAnchor(0.5f, 0);
+	gameover->setPivot(0.5f, 0);
 	gameover->setPosY(120);
 	this->addChild(gameover);
 	// 加载得分板
@@ -36,7 +36,7 @@ void GameOverLayer::initPanel()
 {
 	// 显示得分板
 	auto panel = new ESprite(ResLoader::getImage(L"score_panel"));
-	panel->setAnchor(0.5f, 0.5f);
+	panel->setPivot(0.5f, 0.5f);
 	panel->setPosY(EApp::getHeight() / 2);
 	this->addChild(panel);
 	// 保存最高分
@@ -89,9 +89,9 @@ void GameOverLayer::initButtons()
 {
 	// 显示重新开始按钮
 	auto restartBtnNormal = new ESprite(ResLoader::getImage(L"button_restart"));
-	restartBtnNormal->setAnchor(0.5f, 0.5f);
+	restartBtnNormal->setPivot(0.5f, 0.5f);
 	auto restartBtnSelected = new ESprite(ResLoader::getImage(L"button_restart"));
-	restartBtnSelected->setAnchor(0.5f, 0.5f);
+	restartBtnSelected->setPivot(0.5f, 0.5f);
 	restartBtnSelected->setPosY(5);
 	auto restart = new EButton(
 		restartBtnNormal,
@@ -101,14 +101,14 @@ void GameOverLayer::initButtons()
 		ResLoader::playMusic(L"MUSIC_MENU_CLICK");
 		EApp::enterScene(new GameScene(), new ETransitionFade(0.3f, 0.3f), false);
 	});
-	restart->setAnchorX(0.5f);
+	restart->setPivotX(0.5f);
 	restart->setPosY(360);
 	this->addChild(restart);
 	// 显示返回主菜单按钮
 	auto menuBtnNormal = new ESprite(ResLoader::getImage(L"button_menu"));
-	menuBtnNormal->setAnchor(0.5f, 0.5f);
+	menuBtnNormal->setPivot(0.5f, 0.5f);
 	auto menuBtnSelected = new ESprite(ResLoader::getImage(L"button_menu"));
-	menuBtnSelected->setAnchor(0.5f, 0.5f);
+	menuBtnSelected->setPivot(0.5f, 0.5f);
 	menuBtnSelected->setPosY(5);
 	auto menu = new EButton(
 		menuBtnNormal,
@@ -118,14 +118,14 @@ void GameOverLayer::initButtons()
 		ResLoader::playMusic(L"MUSIC_MENU_CLICK");
 		EApp::backScene(new ETransitionFade(0.3f, 0.3f));
 	});
-	menu->setAnchorX(0.5f);
+	menu->setPivotX(0.5f);
 	menu->setPosY(420);
 	this->addChild(menu);
 	// 显示链接按钮
 	auto shareBtnNormal = new ESprite(ResLoader::getImage(L"button_share"));
-	shareBtnNormal->setAnchor(0.5f, 0.5f);
+	shareBtnNormal->setPivot(0.5f, 0.5f);
 	auto shareBtnSelected = new ESprite(ResLoader::getImage(L"button_share"));
-	shareBtnSelected->setAnchor(0.5f, 0.5f);
+	shareBtnSelected->setPivot(0.5f, 0.5f);
 	shareBtnSelected->setPosY(5);
 	auto share = new EButton(
 		shareBtnNormal,
@@ -134,7 +134,7 @@ void GameOverLayer::initButtons()
 		ResLoader::playMusic(L"MUSIC_MENU_CLICK");
 		ShellExecute(NULL, L"open", L"https://gitee.com/werelone/FlappyBird", NULL, NULL, SW_SHOWNORMAL);
 	});
-	share->setAnchorX(0.5f);
+	share->setPivotX(0.5f);
 	share->setPosY(455);
 	this->addChild(share);
 }

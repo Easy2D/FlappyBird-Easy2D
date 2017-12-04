@@ -50,7 +50,7 @@ void Number::setNumber(int number)
 	float temp = totalWidth / 2;
 	// ¶ÔÆëÍ¼Æ¬Î»ÖÃ
 	for (auto child : this->getChildren()) {
-		child->setAnchor(0, 0);
+		child->setPivot(0, 0);
 		temp -= child->getWidth();
 		child->setPos(temp, 0);
 	}
@@ -87,7 +87,7 @@ void Number::setLittleNumber(int number)
 	float temp = 0;
 	// ÓÒ¶ÔÆëÍ¼Æ¬Î»ÖÃ
 	for (auto child : this->getChildren()) {
-		child->setAnchor(0, 0);
+		child->setPivot(0, 0);
 		temp -= child->getWidth();
 		child->setPos(temp, 0);
 	}

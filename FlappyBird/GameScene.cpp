@@ -7,7 +7,7 @@ GameScene::GameScene()
 	// 添加背景
 	auto background = new ESprite(ResLoader::getImage(L"bg_day"));
 	// 设置背景锚点为左上角
-	background->setAnchor(0, 0);
+	background->setPivot(0, 0);
 	this->add(background);
 	// 添加水管
 	pipes = new Pipes();
@@ -34,7 +34,7 @@ GameScene::GameScene()
 	this->add(tutorial);
 
 	// 添加鼠标消息监听
-	auto mouseListener = new EMousePressListener([=](EPoint) {
+	auto mouseListener = new EListenerMousePress([=](EPoint) {
 		// 监听到鼠标左键按下的消息时，执行 onClick 函数
 		this->onClick();
 	});
@@ -42,18 +42,18 @@ GameScene::GameScene()
 	mouseListener->bindWith(this);
 
 	// 添加键盘按键监听
-	auto keyboardListener = new EKeyboardPressListener([=] {
+	auto keyboardListener = new EListenerKeyboardPress([=] {
 		// 按下空格时，执行 onClick 函数
-		if (EKeyboardMsg::getVal() == EKeyboardMsg::KEY::SPACE) {
+		if (EKeyboardMsg::getKeyValue() == EKeyboardMsg::KEY::SPACE) {
 			this->onClick();
 		}
 	});
 	// 绑定监听器
 	keyboardListener->bindWith(this);
 
-	// 添加碰撞监听器
-	auto collisionListener = new ECollisionListener([=](ENode*, ENode*) {
-		// 只要有碰撞产生，就说明小鸟死亡
+	// 添加物体接触监听器
+	auto collisionListener = new EListenerPhysicsCollision([=]() {
+		// 只要有接触消息产生，就说明小鸟死亡
 		if (bird->living) {
 			this->onBirdDie();
 		}
@@ -97,7 +97,7 @@ void GameScene::onStart()
 	// 添加定时器检测小鸟位置
 	auto timer = new ETimer([=](int) {
 		// 模拟小鸟下落
-		bird->move(0, bird->speed);
+		bird->movePosY(bird->speed);
 		// 模拟小鸟所受重力
 		bird->speed += 0.4f;
 		// 判断是否得分
@@ -153,7 +153,7 @@ void GameScene::onBirdDie()
 	scoreImage->runAction(new EActionFadeOut(0.5f));
 	// 闪动白屏
 	auto white = new ESprite(ResLoader::getImage(L"white"));
-	white->setAnchor(0, 0);
+	white->setPivot(0, 0);
 	white->setOpacity(0);
 	white->setScale(16, 16);
 	white->runAction(new EActionTwo(new EActionFadeIn(0.1f), new EActionFadeOut(0.1f)));

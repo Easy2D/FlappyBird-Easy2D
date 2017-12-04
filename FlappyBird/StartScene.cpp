@@ -11,7 +11,7 @@ StartScene::StartScene()
 	// 添加背景
 	auto background = new ESprite(ResLoader::getImage(L"bg_day"));
 	// 设置背景锚点为左上角
-	background->setAnchor(0, 0);
+	background->setPivot(0, 0);
 	this->add(background);
 	// 添加地面
 	this->add(new Ground());
@@ -26,6 +26,7 @@ StartScene::StartScene()
 	// 创建开始按钮正常状态和按下状态时显示的精灵
 	auto startBtnNormal = new ESprite(ResLoader::getImage(L"button_play"));
 	auto startBtnSelected = new ESprite(ResLoader::getImage(L"button_play"));
+	startBtnNormal->setName(L"test");
 	startBtnSelected->setPosY(5);	// 按钮被选中时向下移动一点点
 	// 添加开始按钮
 	auto startBtn = new EButton(
@@ -38,7 +39,7 @@ StartScene::StartScene()
 	});
 	startBtn->setPosX(EApp::getWidth() / 2);
 	startBtn->setPosY(EApp::getHeight() - startBtnNormal->getHeight() - 100);
-	this->add(startBtn);
+	//this->add(startBtn);
 	// 添加打开分享链接按钮
 	auto shareBtnNormal = new ESprite(ResLoader::getImage(L"button_share"));
 	auto shareBtnSelected = new ESprite(ResLoader::getImage(L"button_share"));
@@ -53,7 +54,10 @@ StartScene::StartScene()
 	});
 	shareBtn->setPosX(EApp::getWidth() / 2);
 	shareBtn->setPosY(EApp::getHeight() - shareBtnNormal->getHeight() - 80);
-	this->add(shareBtn);
+	//this->add(shareBtn);
+
+	auto menu = new EMenu(2, startBtn, shareBtn);
+	this->add(menu);
 
 	// 添加 copyright 图片
 	auto copyright = new ESprite(ResLoader::getImage(L"brand_copyright"));

@@ -41,13 +41,26 @@ Bird::Bird()
 
 	// 初始化旋转动画
 	rotate = new EActionSequence(3, new EActionRotateTo(0.2f, -15), new EActionDelay(0.2f), new EActionRotateTo(0.5f, 90));
+	// 保留这个动画，防止引擎自动释放
+	rotate->retain();
 
 	// 设置初始化状态为 1
 	this->setStatus(1);
 
 	// 为小鸟添加物理圆形
-	auto circle = new ECircle(EPoint(0, 0), this->getRealWidth() / 2);
+	// 小鸟、地面、水管的类别掩码分别为 0x0001 0x0010 0x0100
+	// 设置小鸟接触掩码为 0x0110，所以它会和地面水管产生接触消息
+	// 设置地面和水管的接触掩码为 0x0001，所以它们和小鸟也会产生接触消息
+	auto circle = new ECircle(EPoint(this->getRealWidth() / 2, this->getRealWidth() / 2), this->getRealWidth() / 2);
+	circle->setCategoryBitmask(0x0001);
+	circle->setCollisionBitmask(0x0110);
 	this->setGeometry(circle);
+}
+
+Bird::~Bird()
+{
+	// 让引擎释放曾保留的动画
+	rotate->release();
 }
 
 void Bird::setStatus(int status)
