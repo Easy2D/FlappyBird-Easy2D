@@ -39,7 +39,7 @@ StartScene::StartScene()
 	});
 	startBtn->setPosX(EApp::getWidth() / 2);
 	startBtn->setPosY(EApp::getHeight() - startBtnNormal->getHeight() - 100);
-	//this->add(startBtn);
+	this->add(startBtn);
 	// 添加打开分享链接按钮
 	auto shareBtnNormal = new ESprite(ResLoader::getImage(L"button_share"));
 	auto shareBtnSelected = new ESprite(ResLoader::getImage(L"button_share"));
@@ -54,10 +54,7 @@ StartScene::StartScene()
 	});
 	shareBtn->setPosX(EApp::getWidth() / 2);
 	shareBtn->setPosY(EApp::getHeight() - shareBtnNormal->getHeight() - 80);
-	//this->add(shareBtn);
-
-	auto menu = new EMenu(2, startBtn, shareBtn);
-	this->add(menu);
+	this->add(shareBtn);
 
 	// 添加 copyright 图片
 	auto copyright = new ESprite(ResLoader::getImage(L"brand_copyright"));

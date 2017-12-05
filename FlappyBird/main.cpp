@@ -23,6 +23,7 @@ int WINAPI WinMain(
 		app.setAppName(L"flappybird_nomango");
 		// 加载图片
 		ResLoader::init();
+		ENode::setDefaultPiovt(0.5f, 0.5f);
 		// 进入 Splash 场景
 		app.enterScene(
 			new SplashScene(),

@@ -7,8 +7,8 @@
 GameOverLayer::GameOverLayer(int score)
 {
 	// 获取得分和最高分
-	this->score = score;
-	this->bestScore = EFileUtils::getInt(L"best_score", 0);
+	this->score = 26;// score;
+	this->bestScore = 26;// EFileUtils::getInt(L"best_score", 0);
 	// 整体居中
 	this->setPosX(EApp::getWidth() / 2);
 	// 将节点整体移到屏幕下方
@@ -36,23 +36,22 @@ void GameOverLayer::initPanel()
 {
 	// 显示得分板
 	auto panel = new ESprite(ResLoader::getImage(L"score_panel"));
-	panel->setPivot(0.5f, 0.5f);
 	panel->setPosY(EApp::getHeight() / 2);
 	this->addChild(panel);
 	// 保存最高分
-	if (score > bestScore) {
+	if (score >= bestScore) {
 		EFileUtils::saveInt(L"best_score", score);
 		bestScore = score;
 		// 添加 new 图标
 		auto newImage = new ESprite(ResLoader::getImage(L"new"));
-		newImage->setPos(145, 85);
+		newImage->setPos(26, 23);
 		panel->addChild(newImage);
 	}
 	// 添加奖牌
 	auto modalFrame = getModal();
 	if (modalFrame) {
 		auto modal = new ESprite(modalFrame);
-		modal->setPos(54, 67);
+		modal->setPos(-65, 5);
 		panel->addChild(modal);
 		// 添加闪光
 		auto blink = new ESprite(ResLoader::getImage(L"blink_00"));
@@ -65,8 +64,8 @@ void GameOverLayer::initPanel()
 		frames->addFrame(ResLoader::getImage(L"blink_00"));
 		// 执行帧动画前，随机闪光的位置
 		auto action = new EActionTwo(new EActionCallback([=] {
-			float x = ERandom::between(0, modal->getWidth());
-			float y = ERandom::between(0, modal->getHeight());
+			float x = ERandom::between(-modal->getWidth() / 2, modal->getWidth() / 2);
+			float y = ERandom::between(-modal->getHeight() / 2, modal->getHeight() / 2);
 			blink->setPos(x, y);
 		}), frames);
 		// 执行循环动画
@@ -75,12 +74,12 @@ void GameOverLayer::initPanel()
 	}
 	// 显示得分
 	scoreImage = new Number();
-	scoreImage->setPos(210, 35);
+	scoreImage->setPos(91, -27);
 	scoreImage->setLittleNumber(0);
 	panel->addChild(scoreImage);
 	// 显示最高分
 	bestScoreImage = new Number();
-	bestScoreImage->setPos(210, 76);
+	bestScoreImage->setPos(91, 14);
 	bestScoreImage->setLittleNumber(bestScore);
 	panel->addChild(bestScoreImage);
 }
@@ -89,9 +88,7 @@ void GameOverLayer::initButtons()
 {
 	// 显示重新开始按钮
 	auto restartBtnNormal = new ESprite(ResLoader::getImage(L"button_restart"));
-	restartBtnNormal->setPivot(0.5f, 0.5f);
 	auto restartBtnSelected = new ESprite(ResLoader::getImage(L"button_restart"));
-	restartBtnSelected->setPivot(0.5f, 0.5f);
 	restartBtnSelected->setPosY(5);
 	auto restart = new EButton(
 		restartBtnNormal,
@@ -101,14 +98,11 @@ void GameOverLayer::initButtons()
 		ResLoader::playMusic(L"MUSIC_MENU_CLICK");
 		EApp::enterScene(new GameScene(), new ETransitionFade(0.3f, 0.3f), false);
 	});
-	restart->setPivotX(0.5f);
 	restart->setPosY(360);
 	this->addChild(restart);
 	// 显示返回主菜单按钮
 	auto menuBtnNormal = new ESprite(ResLoader::getImage(L"button_menu"));
-	menuBtnNormal->setPivot(0.5f, 0.5f);
 	auto menuBtnSelected = new ESprite(ResLoader::getImage(L"button_menu"));
-	menuBtnSelected->setPivot(0.5f, 0.5f);
 	menuBtnSelected->setPosY(5);
 	auto menu = new EButton(
 		menuBtnNormal,
@@ -118,14 +112,11 @@ void GameOverLayer::initButtons()
 		ResLoader::playMusic(L"MUSIC_MENU_CLICK");
 		EApp::backScene(new ETransitionFade(0.3f, 0.3f));
 	});
-	menu->setPivotX(0.5f);
 	menu->setPosY(420);
 	this->addChild(menu);
 	// 显示链接按钮
 	auto shareBtnNormal = new ESprite(ResLoader::getImage(L"button_share"));
-	shareBtnNormal->setPivot(0.5f, 0.5f);
 	auto shareBtnSelected = new ESprite(ResLoader::getImage(L"button_share"));
-	shareBtnSelected->setPivot(0.5f, 0.5f);
 	shareBtnSelected->setPosY(5);
 	auto share = new EButton(
 		shareBtnNormal,
@@ -134,7 +125,6 @@ void GameOverLayer::initButtons()
 		ResLoader::playMusic(L"MUSIC_MENU_CLICK");
 		ShellExecute(NULL, L"open", L"https://gitee.com/werelone/FlappyBird", NULL, NULL, SW_SHOWNORMAL);
 	});
-	share->setPivotX(0.5f);
 	share->setPosY(455);
 	this->addChild(share);
 }
@@ -158,6 +148,7 @@ void GameOverLayer::showScore()
 
 ESpriteFrame* GameOverLayer::getModal()
 {
+	return ResLoader::getImage(L"medals_0");
 	if (score < 10) {
 		return nullptr;
 	}
