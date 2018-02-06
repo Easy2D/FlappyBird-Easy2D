@@ -8,22 +8,25 @@
 class GameScene :
 	public EScene
 {
+public:
+	GameScene();
+	void onEnter() override;
+	void onUpdate() override;
+	void onCollide(ENode * node1, ENode * node2) override;
+
+	void start();		// 开始游戏
+	void jump();		// 小鸟跳跃
+	void die();			// 小鸟死亡
+	void gameover();	// 游戏结束
+
 protected:
-	bool m_bStart = false;
-	int score = 0;
+	bool started;
+	int score;
 	Bird*   bird;
 	Ground* ground;
 	Pipes*  pipes;
 	Number* scoreImage;
 	ESprite* ready;
 	ESprite* tutorial;
-
-public:
-	GameScene();
-	void onEnter() override;
-	void onClick();
-	void onStart();
-	void onBirdDie();
-	void onGameOver();
 };
 

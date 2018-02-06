@@ -1,6 +1,5 @@
 #pragma once
-#include "easy2d.h"
-#include "Number.h"
+#include <easy2d.h>
 
 class GameOverLayer :
 	public ENode
@@ -8,15 +7,8 @@ class GameOverLayer :
 public:
 	GameOverLayer(int score);
 
-	void initPanel();
+	void initPanel(int score);
 	void initButtons();
-	void showScore();
-	ESpriteFrame* getModal();
-
-public:
-	int score = 0;
-	int bestScore = 0;
-	Number* scoreImage;
-	Number* bestScoreImage;
+	EImage* getModal(int score);
 };
 

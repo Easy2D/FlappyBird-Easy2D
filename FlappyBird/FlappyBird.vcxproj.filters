@@ -11,7 +11,7 @@
       <UniqueIdentifier>{b4eb7a7d-f7ca-4401-bee4-aa383871a37d}</UniqueIdentifier>
     </Filter>
     <Filter Include="资源">
-      <UniqueIdentifier>{ea3a53d3-e61e-4102-a444-69aac10d0271}</UniqueIdentifier>
+      <UniqueIdentifier>{1a4c9365-69c8-4e02-9983-fcac927c9c33}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -43,6 +43,9 @@
     <ClCompile Include="ResLoader.cpp">
       <Filter>工具</Filter>
     </ClCompile>
+    <ClCompile Include="Pipe.cpp">
+      <Filter>对象</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameScene.h">
@@ -73,31 +76,14 @@
       <Filter>工具</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Pipe.h">
+      <Filter>对象</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\atlas.png">
+    <Image Include="res\logo.ico">
       <Filter>资源</Filter>
     </Image>
-    <Image Include="64.ico">
-      <Filter>资源</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="res\sound\swoosh.wav">
-      <Filter>资源</Filter>
-    </Media>
-    <Media Include="res\sound\point.wav">
-      <Filter>资源</Filter>
-    </Media>
-    <Media Include="res\sound\MenuClick.wav">
-      <Filter>资源</Filter>
-    </Media>
-    <Media Include="res\sound\hit.wav">
-      <Filter>资源</Filter>
-    </Media>
-    <Media Include="res\sound\fly.wav">
-      <Filter>资源</Filter>
-    </Media>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="FlappyBird.rc">

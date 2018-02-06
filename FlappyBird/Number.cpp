@@ -3,11 +3,7 @@
 
 Number::Number()
 {
-}
-
-
-Number::~Number()
-{
+	number = 0;
 }
 
 int Number::getNumber()

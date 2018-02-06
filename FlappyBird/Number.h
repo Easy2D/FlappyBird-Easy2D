@@ -1,18 +1,20 @@
 #pragma once
-#include "easy2d.h"
+#include <easy2d.h>
 
+
+// 数字类
+// 显示得分时，用于将 int 型数字转化为图片的类
 class Number :
-	public ESprite
+	public ENode
 {
 public:
 	Number();
-	~Number();
 
-	int getNumber();
-	void setNumber(int number);
-	void setLittleNumber(int number);
+	int getNumber();					// 获取它代表的数字
+	void setNumber(int number);			// 将 int 转化为图片（大）
+	void setLittleNumber(int number);	// 将 int 转化为图片（小）
 
 protected:
-	int number = 0;
+	int number;
 };
 

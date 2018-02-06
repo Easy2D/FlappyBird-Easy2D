@@ -1,6 +1,7 @@
 #pragma once
-#include "easy2d.h"
+#include <easy2d.h>
 
+// 小鸟类
 class Bird :
 	public ESprite
 {
@@ -9,16 +10,13 @@ public:
 
 	~Bird();
 
-	// 设置小鸟状态
-	// 0 代表完全静止，1 代表上下晃动
-	void setStatus(int status);
+	void setStatus(int status);	// 设置小鸟状态
 
 public:
-	bool living = true;
-	float speed = 0;
+	bool living;
+	float speed;
 	EAction * fly;
 	EAnimation * animation;
 	EAction * rotate;
-	EAction * temp;
 };
 

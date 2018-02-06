@@ -10,27 +10,25 @@ int WINAPI WinMain(
 	int nCmdShow
 )
 {
-	EApp app;
-
-	// 设置程序图标
-	EWindowStyle wStyle;
-	wStyle.m_pIconID = (LPCTSTR)IDI_ICON1;
-
 	// 初始化窗口
-	if (app.init(L"FlappyBird", 288, 512, wStyle))
+	if (EGame::init(L"FlappyBird", 288, 512, (LPCTSTR)IDI_ICON1), L"flappybird_nomango")
 	{
-		// 设置 AppName （用于保存得分）
-		app.setAppName(L"flappybird_nomango");
-		// 加载图片
+		// 加载图片和音乐资源
 		ResLoader::init();
+		// 修改节点默认中心点，便于让图片居中显示
 		ENode::setDefaultPiovt(0.5f, 0.5f);
+
+		// 创建 Splash 场景
+		auto scene = new SplashScene();
+		// 创建淡入淡出式的场景切换动画
+		auto transition = new ETransitionFade(0, 1);
 		// 进入 Splash 场景
-		app.enterScene(
-			new SplashScene(),
-			new ETransitionScaleEmerge(0.3f, ETransitionScaleEmerge::ENTER)
-		);
-		// 运行游戏
-		app.run();
+		ESceneManager::enterScene(scene, transition);
+
+		// 开始游戏
+		EGame::run();
 	}
+	// 回收游戏资源
+	EGame::uninit();
 	return 0;
 }

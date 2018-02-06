@@ -5,26 +5,30 @@
 
 SplashScene::SplashScene()
 {
+	// 显示游戏刚开始时的 LOGO
 	auto splash = new ESprite(ResLoader::getImage(L"splash"));
+	this->add(splash);
 	// 设置图片居中显示
-	splash->setPos(EApp::getWidth() / 2, EApp::getHeight() / 2);
+	splash->setPos(EWindow::getWidth() / 2, EWindow::getHeight() / 2);
 	// 创建连续动画
 	// 1. 等待 2 秒
 	auto action1 = new EActionDelay(2);
-	// 2. 同时执行缩放和淡出动画
-	auto action2 = new EActionTwoAtSameTime(
-		new EActionScaleTo(0.3f, 0.7f),
-		new EActionFadeOut(0.3f)
-	);
-	// 3. 回调函数切换场景
-	auto action3 = new EActionCallback([]() {
-		EApp::enterScene(
-			new StartScene(),				// 切换至 StartScene
-			new ETransitionFade(0, 0.5f),	// 淡入淡出式切换动画
-			false							// 不保存当前场景
-		);
+	// 2. 开始游戏
+	auto action2 = new EActionCallback([=]() {
+		this->start();
 	});
+	// 把前两个动画组合成连续动画
+	auto action = new EActionTwo(action1, action2);
 	// 执行连续动画
-	splash->runAction(new EActionSequence(3, action1, action2, action3));
-	this->add(splash);
+	splash->runAction(action);
+}
+
+void SplashScene::start()
+{
+	// 创建 StartScene
+	auto scene = new StartScene();
+	// 创建淡入淡出式切换动画
+	auto transition = new ETransitionFade(0.5f, 0.5f);
+	// 进入 StartScene，最后的参数 false 表示不再返回当前场景
+	ESceneManager::enterScene(scene, transition, false);
 }

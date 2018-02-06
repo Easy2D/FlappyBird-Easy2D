@@ -6,4 +6,6 @@ class SplashScene :
 {
 public:
 	SplashScene();
+
+	void start();
 };
