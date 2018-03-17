@@ -2,7 +2,7 @@
 #include <easy2d.h>
 
 class StartScene :
-	public EScene
+	public Scene
 {
 public:
 	StartScene();

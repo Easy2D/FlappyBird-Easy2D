@@ -3,7 +3,7 @@
 
 // Ð¡ÄñÀà
 class Bird :
-	public ESprite
+	public Sprite
 {
 public:
 	Bird();
@@ -14,9 +14,9 @@ public:
 
 public:
 	bool living;
-	float speed;
-	EAction * fly;
-	EAnimation * animation;
-	EAction * rotate;
+	double speed;
+	Action * fly;
+	Animation * animation;
+	Action * rotate;
 };
 

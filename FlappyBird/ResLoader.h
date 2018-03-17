@@ -1,6 +1,6 @@
 #pragma once
-#define _CRT_SECURE_NO_WARNINGS
 #include <easy2d.h>
+#include <fstream>
 
 // 小鸟、水管、地面的掩码
 #define BIRD_BITMASK	0x0001
@@ -13,6 +13,5 @@ class ResLoader
 {
 public:
 	static void init();
-	static void playMusic(const EString & musicName);
-	static EImage* getImage(const EString & imageName);
+	static Image* getImage(String imageName);
 };

@@ -6,13 +6,13 @@
 #include "Number.h"
 
 class GameScene :
-	public EScene
+	public Scene
 {
 public:
 	GameScene();
 	void onEnter() override;
 	void onUpdate() override;
-	void onCollide(ENode * node1, ENode * node2) override;
+	void onCollide(Node * node1, Node * node2) override;
 
 	void start();		// 开始游戏
 	void jump();		// 小鸟跳跃
@@ -26,7 +26,7 @@ protected:
 	Ground* ground;
 	Pipes*  pipes;
 	Number* scoreImage;
-	ESprite* ready;
-	ESprite* tutorial;
+	Sprite* ready;
+	Sprite* tutorial;
 };
 

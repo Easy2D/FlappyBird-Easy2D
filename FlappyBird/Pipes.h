@@ -4,7 +4,7 @@
 
 // 管理水管运动的类
 class Pipes :
-	public ESprite
+	public Sprite
 {
 public:
 	Pipes();

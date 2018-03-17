@@ -2,13 +2,13 @@
 #include <easy2d.h>
 
 class GameOverLayer :
-	public ENode
+	public Node
 {
 public:
 	GameOverLayer(int score);
 
 	void initPanel(int score);
 	void initButtons();
-	EImage* getModal(int score);
+	Image* getModal(int score);
 };
 

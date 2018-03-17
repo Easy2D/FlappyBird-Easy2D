@@ -51,7 +51,7 @@ void Pipes::addPipe()
 	// 设置水管横坐标
 	if (number == 0) {
 		// 第一个水管在屏幕外130像素处
-		pipe->setPosX(EWindow::getWidth() + 130);
+		pipe->setPosX(Window::getWidth() + 130);
 	}
 	else {
 		// 其他水管在前一个水管后方200像素处

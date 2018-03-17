@@ -4,7 +4,7 @@
 // 水管类
 // 游戏中小鸟碰到会死亡的水管
 class Pipe
-	: public ENode
+	: public Node
 {
 public:
 	Pipe();

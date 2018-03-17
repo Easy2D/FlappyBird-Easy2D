@@ -2,10 +2,8 @@
 #include <easy2d.h>
 
 class SplashScene :
-	public EScene
+	public Scene
 {
 public:
 	SplashScene();
-
-	void start();
 };
