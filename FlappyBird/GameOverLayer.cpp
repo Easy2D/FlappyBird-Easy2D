@@ -98,7 +98,7 @@ void GameOverLayer::initButtons()
 	auto restart = gcnew Button(restartBtnNormal, restartBtnSelected);
 	// 按下重新开始，进入一个新的 GameScene
 	restart->setClickFunc([] {
-		Player::play(L"res/sound/click.wav");
+		MusicPlayer::play(L"res/sound/click.wav");
 		SceneManager::enter(gcnew GameScene(), gcnew FadeTransition(0.6f), false);
 	});
 	restart->setPosY(360);
@@ -111,7 +111,7 @@ void GameOverLayer::initButtons()
 	auto menu = gcnew Button(menuBtnNormal, menuBtnSelected);
 	// 按下返回主菜单，返回上一个场景
 	menu->setClickFunc([] {
-		Player::play(L"res/sound/click.wav");
+		MusicPlayer::play(L"res/sound/click.wav");
 		SceneManager::back(gcnew FadeTransition(0.6f));
 	});
 	menu->setPosY(420);
@@ -124,7 +124,7 @@ void GameOverLayer::initButtons()
 	auto share = gcnew Button(shareBtnNormal, shareBtnSelected);
 	// 按下链接按钮，打开链接
 	share->setClickFunc([] {
-		Player::play(L"res/sound/click.wav");
+		MusicPlayer::play(L"res/sound/click.wav");
 		ShellExecute(NULL, L"open", L"https://github.com/Easy2D/FlappyBird-Easy2D", NULL, NULL, SW_SHOWNORMAL);
 	});
 	share->setPosY(455);

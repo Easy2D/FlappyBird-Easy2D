@@ -34,7 +34,7 @@ StartScene::StartScene()
 	auto startBtn = gcnew Button(startBtnNormal, startBtnSelected);
 	// 按下开始按钮，进入 Game 场景
 	startBtn->setClickFunc([] {
-		Player::play(L"res/sound/click.wav");
+		MusicPlayer::play(L"res/sound/click.wav");
 		SceneManager::enter(gcnew GameScene(), gcnew FadeTransition(0.6f));
 	});
 	startBtn->setPosX(Window::getWidth() / 2);
@@ -48,7 +48,7 @@ StartScene::StartScene()
 	auto shareBtn = gcnew Button(shareBtnNormal, shareBtnSelected);
 	// 按下按钮打开超链接
 	shareBtn->setClickFunc([] {
-		Player::play(L"res/sound/click.wav");
+		MusicPlayer::play(L"res/sound/click.wav");
 		ShellExecute(NULL, L"open", L"https://github.com/Easy2D/FlappyBird-Easy2D", NULL, NULL, SW_SHOWNORMAL);
 	});
 	shareBtn->setPosX(Window::getWidth() / 2);
@@ -64,5 +64,5 @@ StartScene::StartScene()
 void StartScene::onEnter()
 {
 	// 进入场景时播放音效
-	Player::play(L"res/sound/swoosh.wav");
+	MusicPlayer::play(L"res/sound/swoosh.wav");
 }

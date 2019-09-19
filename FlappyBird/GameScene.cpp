@@ -45,7 +45,7 @@ GameScene::GameScene()
 void GameScene::onEnter()
 {
 	// 进入场景时播放音效
-	Player::play(L"res/sound/swoosh.wav");
+	MusicPlayer::play(L"res/sound/swoosh.wav");
 }
 
 void GameScene::onUpdate()
@@ -80,7 +80,7 @@ void GameScene::onUpdate()
 			// 标记
 			pipes->pipes[0]->scored = true;
 			// 播放音效
-			Player::play(L"res/sound/point.wav");
+			MusicPlayer::play(L"res/sound/point.wav");
 		}
 
 		// 判断碰撞
@@ -133,7 +133,7 @@ void GameScene::jump()
 		// 设置小鸟状态为 3
 		bird->setStatus(3);
 		// 播放音效
-		Player::play(L"res/sound/fly.wav");
+		MusicPlayer::play(L"res/sound/fly.wav");
 	}
 }
 
@@ -144,7 +144,7 @@ void GameScene::die()
 	// 小鸟死亡
 	bird->living = false;
 	// 播放音效
-	Player::play(L"res/sound/hit.wav");
+	MusicPlayer::play(L"res/sound/hit.wav");
 	// 停止地面
 	ground->stop();
 	// 停止水管

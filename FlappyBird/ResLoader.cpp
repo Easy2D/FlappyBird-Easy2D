@@ -13,11 +13,11 @@ map<String, Info> s_ImageMap;
 void ResLoader::init()
 {
 	// 把音乐文件添加到音乐管理器
-	Player::preload(L"res/sound/fly.wav");
-	Player::preload(L"res/sound/hit.wav");
-	Player::preload(L"res/sound/click.wav");
-	Player::preload(L"res/sound/point.wav");
-	Player::preload(L"res/sound/swoosh.wav");
+	MusicPlayer::preload(L"res/sound/fly.wav");
+	MusicPlayer::preload(L"res/sound/hit.wav");
+	MusicPlayer::preload(L"res/sound/click.wav");
+	MusicPlayer::preload(L"res/sound/point.wav");
+	MusicPlayer::preload(L"res/sound/swoosh.wav");
 
 	// 预加载图片
 	Image::preload(L"res/atlas.png");
