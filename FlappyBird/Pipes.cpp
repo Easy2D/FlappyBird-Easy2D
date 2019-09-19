@@ -47,7 +47,7 @@ void Pipes::addPipe()
 		return;
 	
 	// 创建水管
-	auto pipe = new Pipe();
+	auto pipe = gcnew Pipe();
 	// 设置水管横坐标
 	if (number == 0) {
 		// 第一个水管在屏幕外130像素处

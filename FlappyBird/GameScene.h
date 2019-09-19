@@ -4,6 +4,7 @@
 #include "Ground.h"
 #include "Pipes.h"
 #include "Number.h"
+using namespace easy2d;
 
 class GameScene :
 	public Scene
@@ -12,7 +13,6 @@ public:
 	GameScene();
 	void onEnter() override;
 	void onUpdate() override;
-	void onCollide(Node * node1, Node * node2) override;
 
 	void start();		// 开始游戏
 	void jump();		// 小鸟跳跃

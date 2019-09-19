@@ -1,6 +1,7 @@
 #pragma once
 #include <easy2d.h>
 #include <fstream>
+using namespace easy2d;
 
 // 小鸟、水管、地面的掩码
 #define BIRD_BITMASK	0x0001

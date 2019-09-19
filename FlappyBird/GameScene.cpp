@@ -5,38 +5,38 @@
 GameScene::GameScene()
 {
 	// 添加背景
-	auto background = new Sprite(ResLoader::getImage("bg_day"));
-	background->setPivot(0, 0);
-	this->add(background);
+	auto background = gcnew Sprite(ResLoader::getImage(L"bg_day"));
+	background->setAnchor(0, 0);
+	this->addChild(background);
 
 	// 添加水管
-	pipes = new Pipes();
-	this->add(pipes);
+	pipes = gcnew Pipes();
+	this->addChild(pipes);
 
 	// 添加小鸟
-	bird = new Bird();
+	bird = gcnew Bird();
 	bird->setPos(60, Window::getHeight() / 2);
-	this->add(bird);
+	this->addChild(bird);
 
 	// 添加地面
-	ground = new Ground();
-	this->add(ground);
+	ground = gcnew Ground();
+	this->addChild(ground);
 
 	// 添加得分
-	scoreImage = new Number();
+	scoreImage = gcnew Number();
 	scoreImage->setPos(Window::getWidth() / 2, 50);
 	scoreImage->setNumber(0);
-	this->add(scoreImage);
+	this->addChild(scoreImage);
 
 	// 添加 ready 图片
-	ready = new Sprite(ResLoader::getImage("text_ready"));
+	ready = gcnew Sprite(ResLoader::getImage(L"text_ready"));
 	ready->setPos(Window::getWidth() / 2, Window::getHeight() / 2 - 70);
-	this->add(ready);
+	this->addChild(ready);
 
 	// 添加教程图片
-	tutorial = new Sprite(ResLoader::getImage("tutorial"));
+	tutorial = gcnew Sprite(ResLoader::getImage(L"tutorial"));
 	tutorial->setPos(Window::getWidth() / 2, Window::getHeight() / 2 + 30);
-	this->add(tutorial);
+	this->addChild(tutorial);
 
 	started = false;
 	score = 0;
@@ -45,14 +45,14 @@ GameScene::GameScene()
 void GameScene::onEnter()
 {
 	// 进入场景时播放音效
-	MusicManager::play("res/sound/swoosh.wav");
+	Player::play(L"res/sound/swoosh.wav");
 }
 
 void GameScene::onUpdate()
 {
 	// 按下鼠标左键或按下空格键
-	if (Input::isMouseLButtonPress() || 
-		Input::isKeyPress(KeyCode::SPACE))
+	if (Input::isPress(Mouse::Left) || 
+		Input::isPress(Key::Space))
 	{
 		this->jump();
 	}
@@ -63,12 +63,13 @@ void GameScene::onUpdate()
 		// 模拟小鸟下落
 		bird->movePosY(bird->speed);
 		// 模拟小鸟所受重力
-		bird->speed += 0.4;
+		bird->speed += 0.4f;
 		// 若小鸟纵坐标小于 0，限制它继续往上飞
 		if (bird->getPosY() < 0) {
 			bird->setPosY(0);
 			bird->speed = 0;
 		}
+
 		// 判断小鸟是否飞过了水管
 		if (!pipes->pipes[0]->scored &&
 			pipes->pipes[0]->getPosX() <= bird->getPosX())
@@ -79,10 +80,24 @@ void GameScene::onUpdate()
 			// 标记
 			pipes->pipes[0]->scored = true;
 			// 播放音效
-			MusicManager::play("res/sound/point.wav");
+			Player::play(L"res/sound/point.wav");
 		}
+
+		// 判断碰撞
+		if (bird->living) {
+			for (auto pipe : pipes->pipes) {
+				auto box = bird->getBoundingBox();  // 获取小鸟外包围盒
+				for (auto child : pipe->getAllChildren()) {
+					if (child->getBoundingBox().intersects(box)) {  // 判断小鸟包围盒是否和水管相交
+						this->die();
+					}
+				}
+			}
+		}
+
 		// 若小鸟纵坐标小于地面，游戏结束
 		if (Window::getHeight() - bird->getPosY() <= 123) {
+			this->die();
 			// 让小鸟停止
 			bird->setPosY(Window::getHeight() - 123);
 			bird->setStatus(0);
@@ -94,19 +109,11 @@ void GameScene::onUpdate()
 	}
 }
 
-void GameScene::onCollide(Node * node1, Node * node2)
-{
-	// 只要有碰撞产生，就说明小鸟死亡
-	if (bird->living) {
-		this->die();
-	}
-}
-
 void GameScene::start()
 {
 	// 隐藏 ready 图片
-	ready->runAction(new ActionFadeOut(0.4));
-	tutorial->runAction(new ActionFadeOut(0.4));
+	ready->runAction(gcnew FadeOut(0.4f));
+	tutorial->runAction(gcnew FadeOut(0.4f));
 	// 开始移动水管
 	pipes->start();
 	// 设置小鸟状态为 2
@@ -122,33 +129,35 @@ void GameScene::jump()
 	}
 	if (bird->living) {
 		// 如果小鸟还活着，给小鸟一个向上的速度
-		bird->speed = -7.2;
+		bird->speed = -7.2f;
 		// 设置小鸟状态为 3
 		bird->setStatus(3);
 		// 播放音效
-		MusicManager::play("res/sound/fly.wav");
+		Player::play(L"res/sound/fly.wav");
 	}
 }
 
 void GameScene::die()
 {
+	if (!bird->living) return;
+
 	// 小鸟死亡
 	bird->living = false;
 	// 播放音效
-	MusicManager::play("res/sound/hit.wav");
+	Player::play(L"res/sound/hit.wav");
 	// 停止地面
 	ground->stop();
 	// 停止水管
 	pipes->stop();
 	// 隐藏得分
-	scoreImage->runAction(new ActionFadeOut(0.5));
+	scoreImage->runAction(gcnew FadeOut(0.5f));
 	// 闪动白屏
-	auto white = new Sprite(ResLoader::getImage("white"));
-	white->setPivot(0, 0);
+	auto white = gcnew Sprite(ResLoader::getImage(L"white"));
+	white->setAnchor(0, 0);
 	white->setOpacity(0);
 	white->setScale(16, 16);
-	white->runAction(new ActionTwo(new ActionFadeIn(0.1), new ActionFadeOut(0.1)));
-	this->add(white);
+	white->runAction(gcnew Sequence({ gcnew FadeIn(0.1f), gcnew FadeOut(0.1f) }));
+	this->addChild(white);
 }
 
 void GameScene::gameover()
@@ -156,5 +165,5 @@ void GameScene::gameover()
 	started = false;
 	this->setAutoUpdate(false);
 	// 显示得分面板
-	this->add(new GameOverLayer(score));
+	this->addChild(gcnew GameOverLayer(score));
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include <easy2d.h>
+using namespace easy2d;
 
 // Ð¡ÄñÀà
 class Bird :
@@ -14,7 +15,7 @@ public:
 
 public:
 	bool living;
-	double speed;
+	float speed;
 	Action * fly;
 	Animation * animation;
 	Action * rotate;

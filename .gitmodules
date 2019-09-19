@@ -1,0 +1,3 @@
+[submodule "Easy2D"]
+	path = Easy2D
+	url = https://github.com/Easy2D/Easy2D.git

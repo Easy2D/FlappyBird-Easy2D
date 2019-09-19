@@ -1,5 +1,6 @@
 #pragma once
 #include <easy2d.h>
+using namespace easy2d;
 
 // 地面类
 // 游戏中最下方一直向左移动的地面

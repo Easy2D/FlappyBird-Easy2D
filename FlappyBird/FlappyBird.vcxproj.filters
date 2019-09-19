@@ -90,4 +90,9 @@
       <Filter>资源</Filter>
     </ResourceCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="res\atlas.txt">
+      <Filter>资源</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

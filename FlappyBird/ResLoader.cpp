@@ -4,7 +4,7 @@ using namespace std;
 
 struct Info
 {
-	double x, y, width, height;
+	float x, y, width, height;
 };
 
 map<String, Info> s_ImageMap;
@@ -13,22 +13,22 @@ map<String, Info> s_ImageMap;
 void ResLoader::init()
 {
 	// 把音乐文件添加到音乐管理器
-	MusicManager::preload("res/sound/fly.wav");
-	MusicManager::preload("res/sound/hit.wav");
-	MusicManager::preload("res/sound/click.wav");
-	MusicManager::preload("res/sound/point.wav");
-	MusicManager::preload("res/sound/swoosh.wav");
+	Player::preload(L"res/sound/fly.wav");
+	Player::preload(L"res/sound/hit.wav");
+	Player::preload(L"res/sound/click.wav");
+	Player::preload(L"res/sound/point.wav");
+	Player::preload(L"res/sound/swoosh.wav");
 
 	// 预加载图片
-	Image::preload("res/atlas.png");
+	Image::preload(L"res/atlas.png");
 
 	// 打开 atlas.bin 文件
-	ifstream file("res/atlas.bin");
+	wifstream file(L"res/atlas.txt");
 	// 读取图片信息
 	while (!file.eof())
 	{
-		char name[21];
-		double width, height, x, y;
+		WCHAR name[21];
+		float width, height, x, y;
 		// 读取图片名称、宽高、起始点坐标
 		file >> name >> width >> height >> x >> y;
 		// 创建 Info
@@ -40,5 +40,5 @@ void ResLoader::init()
 Image * ResLoader::getImage(String imageName)
 {
 	Info info = s_ImageMap.at(imageName);
-	return new Image("res/atlas.png", info.x, info.y, info.width, info.height);
+	return gcnew Image(L"res/atlas.png", Rect{ info.x, info.y, info.width, info.height });
 }

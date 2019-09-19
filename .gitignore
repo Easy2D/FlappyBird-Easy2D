@@ -31,7 +31,9 @@
 *.out
 *.app
 
+# Visual Studio configurations
+*.vcxproj.user
+*.aps
 .vs/
 Debug/
 Release/
-x64/
