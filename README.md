@@ -1,9 +1,13 @@
 # FlappyBird
+
 经典像素鸟游戏，windows重制版  
 
-作者：Nomango  
-最后更新：2018-3-14  
-编译环境：Visual Studio 2017 & [Easy2D v2.0.0-beta6](http://www.easy2d.cn/)  
-项目类型：Win32 Application  
-  
-素材来源于网络，转载请注明出处！
+## 运行方法
+
+1. 在安装了 Git 的终端上运行 `git clone https://github.com/Easy2D/FlappyBird-Easy2D.git --recursive`
+2. 打开项目目录下的 `.sln` 文件
+3. 编译并启动！
+
+## 运行预览
+
+![截图1](https://github.com/Easy2D/FlappyBird-Easy2D/raw/master/preview.png)
