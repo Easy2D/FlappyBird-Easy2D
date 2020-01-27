@@ -1,5 +1,5 @@
 #pragma once
-#include <easy2d.h>
+#include <easy2d/easy2d.h>
 #include "Bird.h"
 #include "Ground.h"
 #include "Pipes.h"

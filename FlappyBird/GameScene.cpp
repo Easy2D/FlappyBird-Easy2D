@@ -51,8 +51,8 @@ void GameScene::onEnter()
 void GameScene::onUpdate()
 {
 	// 按下鼠标左键或按下空格键
-	if (Input::isPress(Mouse::Left) || 
-		Input::isPress(Key::Space))
+	if (Input::isPress(MouseCode::Left) || 
+		Input::isPress(KeyCode::Space))
 	{
 		this->jump();
 	}

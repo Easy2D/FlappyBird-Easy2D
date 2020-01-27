@@ -14,7 +14,7 @@ int Number::getNumber()
 void Number::setNumber(int number)
 {
 	this->number = number;
-	this->clearAllChildren();
+	this->removeAllChildren();
 
 	// 数字高度
 	float height = ResLoader::getImage(L"number_big_0")->getHeight();
@@ -55,7 +55,7 @@ void Number::setNumber(int number)
 void Number::setLittleNumber(int number)
 {
 	this->number = number;
-	this->clearAllChildren();
+	this->removeAllChildren();
 
 	// 数字高度
 	float height = ResLoader::getImage(L"number_medium_0")->getHeight();

@@ -203,11 +203,6 @@
     <Text Include="res\atlas.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Easy2D\Easy2D\Easy2D.vcxproj">
-      <Project>{ff7f943d-a89c-4e6c-97cf-84f7d8ff8edf}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

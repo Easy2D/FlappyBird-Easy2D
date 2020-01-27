@@ -5,7 +5,7 @@
 // 项目类型：Win32 Application
 //---------------------------------------------------------
 
-#include <easy2d.h>
+#include <easy2d/easy2d.h>
 #include "SplashScene.h"
 #include "ResLoader.h"
 #include "resource.h"
