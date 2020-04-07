@@ -13,6 +13,9 @@
     <Filter Include="资源">
       <UniqueIdentifier>{1a4c9365-69c8-4e02-9983-fcac927c9c33}</UniqueIdentifier>
     </Filter>
+    <Filter Include="资源\音频">
+      <UniqueIdentifier>{8d764f9d-849f-4d32-9cf1-756339bfe8e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameScene.cpp">
@@ -84,6 +87,9 @@
     <Image Include="res\logo.ico">
       <Filter>资源</Filter>
     </Image>
+    <Image Include="res\atlas.png">
+      <Filter>资源</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="FlappyBird.rc">
@@ -91,11 +97,28 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="res\sound\swoosh.wav">
+      <Filter>资源\音频</Filter>
+    </Media>
+    <Media Include="res\sound\point.wav">
+      <Filter>资源\音频</Filter>
+    </Media>
+    <Media Include="res\sound\hit.wav">
+      <Filter>资源\音频</Filter>
+    </Media>
+    <Media Include="res\sound\fly.wav">
+      <Filter>资源\音频</Filter>
+    </Media>
+    <Media Include="res\sound\click.wav">
+      <Filter>资源\音频</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
     <Text Include="res\atlas.txt">
       <Filter>资源</Filter>
     </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\README.md" />
   </ItemGroup>
 </Project>

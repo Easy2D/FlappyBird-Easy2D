@@ -22,14 +22,17 @@ void Number::setNumber(int number)
 	float totalWidth = 0;
 	// 为数字的每一位添加相应图片
 	// 对数字 0 作单独处理
-	if (number == 0) {
+	if (number == 0)
+	{
 		auto zero = gcnew Sprite(ResLoader::getImage(L"number_big_0"));
 		totalWidth = zero->getWidth();
 		this->addChild(zero);
 	}
-	else {
+	else
+	{
 		WCHAR str[13];
-		while (number) {
+		while (number)
+		{
 			// 计算每一位上的数字
 			int temp = number % 10;
 			number /= 10;
@@ -45,7 +48,8 @@ void Number::setNumber(int number)
 	// 数字总宽度
 	float temp = totalWidth / 2;
 	// 对齐图片位置
-	for (auto child : this->getAllChildren()) {
+	for (auto child : this->getAllChildren())
+	{
 		child->setAnchor(0, 0);
 		temp -= child->getWidth();
 		child->setPos(temp, 0);
@@ -61,13 +65,16 @@ void Number::setLittleNumber(int number)
 	float height = ResLoader::getImage(L"number_medium_0")->getHeight();
 	// 为数字的每一位添加相应图片
 	// 对数字 0 作单独处理
-	if (number == 0) {
+	if (number == 0)
+	{
 		auto zero = gcnew Sprite(ResLoader::getImage(L"number_medium_0"));
 		this->addChild(zero);
 	}
-	else {
+	else
+	{
 		WCHAR str[16];
-		while (number) {
+		while (number)
+		{
 			// 计算每一位上的数字
 			int temp = number % 10;
 			number /= 10;
@@ -82,7 +89,8 @@ void Number::setLittleNumber(int number)
 	// 数字总宽度
 	float temp = 0;
 	// 右对齐图片位置
-	for (auto child : this->getAllChildren()) {
+	for (auto child : this->getAllChildren())
+	{
 		child->setAnchor(0, 0);
 		temp -= child->getWidth();
 		child->setPos(temp, 0);

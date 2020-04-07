@@ -14,4 +14,3 @@ public:
 public:
 	bool scored;	// 标志小鸟是否飞过了该水管
 };
-

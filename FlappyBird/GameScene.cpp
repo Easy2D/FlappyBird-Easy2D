@@ -45,13 +45,13 @@ GameScene::GameScene()
 void GameScene::onEnter()
 {
 	// 进入场景时播放音效
-	MusicPlayer::play(L"res/sound/swoosh.wav");
+	ResLoader::playMusic(MusicType::Swoosh);
 }
 
 void GameScene::onUpdate()
 {
 	// 按下鼠标左键或按下空格键
-	if (Input::isPress(MouseCode::Left) || 
+	if (Input::isPress(MouseCode::Left) ||
 		Input::isPress(KeyCode::Space))
 	{
 		this->jump();
@@ -65,7 +65,8 @@ void GameScene::onUpdate()
 		// 模拟小鸟所受重力
 		bird->speed += 0.4f;
 		// 若小鸟纵坐标小于 0，限制它继续往上飞
-		if (bird->getPosY() < 0) {
+		if (bird->getPosY() < 0)
+		{
 			bird->setPosY(0);
 			bird->speed = 0;
 		}
@@ -80,15 +81,19 @@ void GameScene::onUpdate()
 			// 标记
 			pipes->pipes[0]->scored = true;
 			// 播放音效
-			MusicPlayer::play(L"res/sound/point.wav");
+			ResLoader::playMusic(MusicType::Point);
 		}
 
 		// 判断碰撞
-		if (bird->living) {
-			for (auto pipe : pipes->pipes) {
+		if (bird->living)
+		{
+			for (auto pipe : pipes->pipes)
+			{
 				auto box = bird->getBoundingBox();  // 获取小鸟外包围盒
-				for (auto child : pipe->getAllChildren()) {
-					if (child->getBoundingBox().intersects(box)) {  // 判断小鸟包围盒是否和水管相交
+				for (auto child : pipe->getAllChildren())
+				{
+					if (child->getBoundingBox().intersects(box))
+					{  // 判断小鸟包围盒是否和水管相交
 						this->die();
 					}
 				}
@@ -96,11 +101,12 @@ void GameScene::onUpdate()
 		}
 
 		// 若小鸟纵坐标小于地面，游戏结束
-		if (Window::getHeight() - bird->getPosY() <= 123) {
+		if (Window::getHeight() - bird->getPosY() <= 123)
+		{
 			this->die();
 			// 让小鸟停止
 			bird->setPosY(Window::getHeight() - 123);
-			bird->setStatus(0);
+			bird->setStatus(Bird::Status::Still);
 			// 让小鸟脸朝下
 			bird->setRotation(90);
 			// 显示游戏结束界面
@@ -116,24 +122,26 @@ void GameScene::start()
 	tutorial->runAction(gcnew FadeOut(0.4f));
 	// 开始移动水管
 	pipes->start();
-	// 设置小鸟状态为 2
-	bird->setStatus(2);
+	// 设置小鸟状态
+	bird->setStatus(Bird::Status::StartToFly);
 }
 
 void GameScene::jump()
 {
-	if (!started) {
+	if (!started)
+	{
 		// 若游戏还没有开始，开始游戏
 		started = true;
 		start();
 	}
-	if (bird->living) {
+	if (bird->living)
+	{
 		// 如果小鸟还活着，给小鸟一个向上的速度
 		bird->speed = -7.2f;
-		// 设置小鸟状态为 3
-		bird->setStatus(3);
+		// 设置小鸟状态
+		bird->setStatus(Bird::Status::Fly);
 		// 播放音效
-		MusicPlayer::play(L"res/sound/fly.wav");
+		ResLoader::playMusic(MusicType::Fly);
 	}
 }
 
@@ -144,7 +152,7 @@ void GameScene::die()
 	// 小鸟死亡
 	bird->living = false;
 	// 播放音效
-	MusicPlayer::play(L"res/sound/hit.wav");
+	ResLoader::playMusic(MusicType::Hit);
 	// 停止地面
 	ground->stop();
 	// 停止水管

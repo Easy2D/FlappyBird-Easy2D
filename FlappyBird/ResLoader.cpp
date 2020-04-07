@@ -1,44 +1,61 @@
 #include "ResLoader.h"
-#include <map>
-using namespace std;
+#include "resource.h"
+#include <sstream>
 
-struct Info
-{
-	float x, y, width, height;
-};
-
-map<String, Info> s_ImageMap;
-
+std::map<String, ResLoader::ImageInfo> ResLoader::imageMap;
+std::map<MusicType, Music*> ResLoader::musicMap;
 
 void ResLoader::init()
 {
-	// 把音乐文件添加到音乐管理器
-	MusicPlayer::preload(L"res/sound/fly.wav");
-	MusicPlayer::preload(L"res/sound/hit.wav");
-	MusicPlayer::preload(L"res/sound/click.wav");
-	MusicPlayer::preload(L"res/sound/point.wav");
-	MusicPlayer::preload(L"res/sound/swoosh.wav");
-
 	// 预加载图片
-	Image::preload(L"res/atlas.png");
+	Image::preload(IDB_PNG1, L"PNG");
 
-	// 打开 atlas.bin 文件
-	wifstream file(L"res/atlas.txt");
+	// 打开 atlas.txt 文件
+	Resource atlas(IDR_TXT1, L"TXT");
+	Resource::Data data = atlas.loadData();
+	// 读取文件内容
+	std::stringstream sstream;
+	sstream << data;
 	// 读取图片信息
-	while (!file.eof())
+	while (!sstream.eof())
 	{
-		WCHAR name[21];
+		char name[21];
 		float width, height, x, y;
 		// 读取图片名称、宽高、起始点坐标
-		file >> name >> width >> height >> x >> y;
+		sstream >> name >> width >> height >> x >> y;
 		// 创建 Info
-		Info info = { x, y, width, height };
-		s_ImageMap.insert(make_pair(name, info));
+		ImageInfo info = { x, y, width, height };
+		// 将名称从窄字符串转为宽字符串
+		String wideName = NarrowToWide(name);
+		// 保存到地图中
+		imageMap.insert(std::make_pair(wideName, info));
+	}
+
+	// 加载音频
+	int wavId[] = { WAV_CLICK, WAV_FLY, WAV_HIT, WAV_POINT, WAV_SWOOSH };
+	MusicType wavName[] = { MusicType::Click, MusicType::Fly, MusicType::Hit, MusicType::Point, MusicType::Swoosh };
+	for (int i = 0; i < ARRAYSIZE(wavId); i++)
+	{
+		// 使用播放器预加载音频
+		Music* music = MusicPlayer::preload(wavId[i], L"WAVE");
+		// 保存到地图中
+		musicMap.insert(std::make_pair(wavName[i], music));
 	}
 }
 
-Image * ResLoader::getImage(String imageName)
+Image* ResLoader::getImage(String imageName)
 {
-	Info info = s_ImageMap.at(imageName);
-	return gcnew Image(L"res/atlas.png", Rect{ info.x, info.y, info.width, info.height });
+	auto iter = imageMap.find(imageName);
+	if (iter == imageMap.end())
+	{
+		return nullptr;
+	}
+	ImageInfo info = imageMap.at(imageName);
+	Image* image = gcnew Image(IDB_PNG1, L"PNG", Rect{ info.x, info.y, info.width, info.height });
+	return image;
+}
+
+void ResLoader::playMusic(MusicType musicType)
+{
+	musicMap[musicType]->play();
 }

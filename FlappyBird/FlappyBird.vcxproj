@@ -185,13 +185,21 @@
     <ResourceCompile Include="FlappyBird.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\atlas.png" />
     <Image Include="res\logo.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="res\atlas.txt" />
+    <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\README.md" />
+    <Media Include="res\sound\click.wav" />
+    <Media Include="res\sound\fly.wav" />
+    <Media Include="res\sound\hit.wav" />
+    <Media Include="res\sound\point.wav" />
+    <Media Include="res\sound\swoosh.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="res\atlas.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

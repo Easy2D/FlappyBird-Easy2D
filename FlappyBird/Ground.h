@@ -14,7 +14,6 @@ public:
 	void stop();
 
 public:
-	Sprite * ground1;	// 第一块地面
-	Sprite * ground2;	// 第二块地面
+	Sprite* ground1;	// 第一块地面
+	Sprite* ground2;	// 第二块地面
 };
-

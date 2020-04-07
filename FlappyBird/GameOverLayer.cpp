@@ -23,7 +23,7 @@ GameOverLayer::GameOverLayer(int score)
 	this->setPosX(Window::getWidth() / 2);
 	// 将节点整体移到屏幕下方
 	this->setPosY(Window::getHeight());
-	
+
 	// 创建向量，向上运动窗口的高度
 	auto vec = Vector2(0, -Window::getHeight());
 	// 位移动画，让得分面板从底部移动上来
@@ -41,7 +41,8 @@ void GameOverLayer::initPanel(int score)
 	int bestScore = Data::getInt(L"best_score", 0);
 
 	// 保存最高分
-	if (score > bestScore) {
+	if (score > bestScore)
+	{
 		bestScore = score;
 		Data::saveInt(L"best_score", bestScore);
 		// 添加 gcnew 图标
@@ -52,7 +53,8 @@ void GameOverLayer::initPanel(int score)
 
 	// 添加奖牌
 	auto modalFrame = getModal(score);
-	if (modalFrame) {
+	if (modalFrame)
+	{
 		auto modal = gcnew Sprite(modalFrame);
 		modal->setPos(54, 68);
 		panel->addChild(modal);
@@ -66,11 +68,12 @@ void GameOverLayer::initPanel(int score)
 		frames->add(ResLoader::getImage(L"blink_01"));
 		frames->add(ResLoader::getImage(L"blink_00"));
 		// 随机闪光位置的动画
-		auto action = gcnew CallFunc([=] {
-			float x = Random::range(0, modal->getWidth());
-			float y = Random::range(0, modal->getHeight());
-			blink->setPos(x, y);
-		});
+		auto action = gcnew CallFunc([=]
+			{
+				float x = Random::range(0, modal->getWidth());
+				float y = Random::range(0, modal->getHeight());
+				blink->setPos(x, y);
+			});
 		// 两动画交替循环运行
 		blink->runAction(gcnew Loop(gcnew Sequence({ action, gcnew Animate(frames) })));
 		modal->addChild(blink);
@@ -97,10 +100,11 @@ void GameOverLayer::initButtons()
 	restartBtnSelected->setPosY(5);
 	auto restart = gcnew Button(restartBtnNormal, restartBtnSelected);
 	// 按下重新开始，进入一个新的 GameScene
-	restart->setClickFunc([] {
-		MusicPlayer::play(L"res/sound/click.wav");
-		SceneManager::enter(gcnew GameScene(), gcnew FadeTransition(0.6f), false);
-	});
+	restart->setClickFunc([]
+		{
+			ResLoader::playMusic(MusicType::Click);
+			SceneManager::enter(gcnew GameScene(), gcnew FadeTransition(0.6f), false);
+		});
 	restart->setPosY(360);
 	this->addChild(restart);
 
@@ -110,10 +114,11 @@ void GameOverLayer::initButtons()
 	menuBtnSelected->setPosY(5);
 	auto menu = gcnew Button(menuBtnNormal, menuBtnSelected);
 	// 按下返回主菜单，返回上一个场景
-	menu->setClickFunc([] {
-		MusicPlayer::play(L"res/sound/click.wav");
-		SceneManager::back(gcnew FadeTransition(0.6f));
-	});
+	menu->setClickFunc([]
+		{
+			ResLoader::playMusic(MusicType::Click);
+			SceneManager::back(gcnew FadeTransition(0.6f));
+		});
 	menu->setPosY(420);
 	this->addChild(menu);
 
@@ -123,29 +128,35 @@ void GameOverLayer::initButtons()
 	shareBtnSelected->setPosY(5);
 	auto share = gcnew Button(shareBtnNormal, shareBtnSelected);
 	// 按下链接按钮，打开链接
-	share->setClickFunc([] {
-		MusicPlayer::play(L"res/sound/click.wav");
-		ShellExecute(NULL, L"open", L"https://github.com/Easy2D/FlappyBird-Easy2D", NULL, NULL, SW_SHOWNORMAL);
-	});
+	share->setClickFunc([]
+		{
+			ResLoader::playMusic(MusicType::Click);
+			ShellExecute(NULL, L"open", L"https://github.com/Easy2D/FlappyBird-Easy2D", NULL, NULL, SW_SHOWNORMAL);
+		});
 	share->setPosY(455);
 	this->addChild(share);
 }
 
 Image* GameOverLayer::getModal(int score)
 {
-	if (score < 10) {
+	if (score < 10)
+	{
 		return nullptr;
 	}
-	else if (score >= 10 && score < 20) {
+	else if (score >= 10 && score < 20)
+	{
 		return ResLoader::getImage(L"medals_0");	// 铜牌
 	}
-	else if (score >= 20 && score < 30) {
+	else if (score >= 20 && score < 30)
+	{
 		return ResLoader::getImage(L"medals_1");	// 银牌
 	}
-	else if (score >= 30 && score < 50) {
+	else if (score >= 30 && score < 50)
+	{
 		return ResLoader::getImage(L"medals_2");	// 金牌
 	}
-	else {
+	else
+	{
 		return ResLoader::getImage(L"medals_3");	// 钻石奖牌
 	}
 }

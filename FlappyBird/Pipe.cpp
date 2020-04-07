@@ -11,7 +11,7 @@ Pipe::Pipe()
 	// 与屏幕底部最小距离不小于地面上方 100 像素
 	float landHeight = ResLoader::getImage(L"land")->getHeight();
 	float height = Random::range(100, Window::getHeight() - landHeight - 100);
-	
+
 	// 创建上水管
 	auto pipe1 = gcnew Sprite(ResLoader::getImage(L"pipe_above"));
 	pipe1->setAnchor(1, 1);

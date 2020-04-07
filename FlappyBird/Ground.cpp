@@ -31,10 +31,12 @@ void Ground::onUpdate()
 	ground1->movePos(-2, 0);
 	ground2->movePos(-2, 0);
 	// 地面完全移出屏幕时，重置地面位置
-	if (ground1->getPosX() <= -ground1->getWidth()) {
+	if (ground1->getPosX() <= -ground1->getWidth())
+	{
 		ground1->setPosX(ground1->getWidth() - 1);
 	}
-	if (ground2->getPosX() <= -ground2->getWidth()) {
+	if (ground2->getPosX() <= -ground2->getWidth())
+	{
 		ground2->setPosX(ground2->getWidth() - 1);
 	}
 }
