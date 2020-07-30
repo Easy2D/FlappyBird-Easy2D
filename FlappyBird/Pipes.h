@@ -1,7 +1,5 @@
 #pragma once
-#include <easy2d/easy2d.h>
 #include "Pipe.h"
-using namespace easy2d;
 
 // 管理水管运动的类
 class Pipes :

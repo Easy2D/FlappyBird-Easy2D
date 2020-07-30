@@ -1,7 +1,6 @@
 #pragma once
-#include <easy2d/easy2d.h>
+#include "common.h"
 #include <map>
-using namespace easy2d;
 
 // “Ù∆µ¿‡–Õ
 enum class MusicType

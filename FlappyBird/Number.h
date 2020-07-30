@@ -1,7 +1,6 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
-#include <easy2d/easy2d.h>
-using namespace easy2d;
+#include "common.h"
 
 
 // Êý×ÖÀà

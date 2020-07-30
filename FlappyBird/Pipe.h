@@ -1,6 +1,5 @@
 #pragma once
-#include <easy2d/easy2d.h>
-using namespace easy2d;
+#include "common.h"
 
 // 水管类
 // 游戏中小鸟碰到会死亡的水管

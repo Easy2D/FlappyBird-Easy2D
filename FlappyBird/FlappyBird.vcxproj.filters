@@ -82,6 +82,7 @@
     <ClInclude Include="Pipe.h">
       <Filter>对象</Filter>
     </ClInclude>
+    <ClInclude Include="common.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\logo.ico">

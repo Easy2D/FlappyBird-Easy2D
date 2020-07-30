@@ -57,5 +57,9 @@ Image* ResLoader::getImage(String imageName)
 
 void ResLoader::playMusic(MusicType musicType)
 {
-	musicMap[musicType]->play();
+	Music* music = musicMap[musicType];
+	if (music)
+	{
+		music->play();
+	}
 }

@@ -1,10 +1,8 @@
 #pragma once
-#include <easy2d/easy2d.h>
 #include "Bird.h"
 #include "Ground.h"
 #include "Pipes.h"
 #include "Number.h"
-using namespace easy2d;
 
 class GameScene :
 	public Scene
