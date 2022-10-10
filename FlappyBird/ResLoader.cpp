@@ -51,7 +51,7 @@ Image* ResLoader::getImage(String imageName)
 		return nullptr;
 	}
 	ImageInfo info = imageMap.at(imageName);
-	Image* image = gcnew Image(IDB_PNG1, L"PNG", Rect{ info.x, info.y, info.width, info.height });
+	Image* image = gcnew Image(IDB_PNG1, L"PNG", Rect{ Point{info.x, info.y}, Size{info.width, info.height} });
 	return image;
 }
 
