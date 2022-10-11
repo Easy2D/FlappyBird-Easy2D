@@ -1,6 +1,11 @@
 #include "Bird.h"
 #include "ResLoader.h"
 
+namespace
+{
+	float gravity = 1440.f;	// 重力每秒加速度
+	float jumpSpeed = 432.f;	// 小鸟跳跃获得的初速度
+}
 
 Bird::Bird()
 {
@@ -59,6 +64,39 @@ Bird::~Bird()
 	rotate->release();
 }
 
+void Bird::fall()
+{
+	movePosY(Time::getDeltaTime() * speed);
+	// 模拟小鸟所受重力
+	speed += Time::getDeltaTime() * gravity;
+	// 若小鸟纵坐标小于 0，限制它继续往上飞
+	if (getPosY() < 0)
+	{
+		setPosY(0);
+		speed = 0;
+	}
+}
+
+void Bird::jump()
+{
+	if (living)
+	{
+		// 如果小鸟还活着，给小鸟一个向上的速度
+		speed = -jumpSpeed;
+		// 设置小鸟状态
+		setStatus(Bird::Status::Fly);
+		// 播放音效
+		ResLoader::playMusic(MusicType::Fly);
+	}
+}
+
+void Bird::die()
+{
+	living = false;
+	// 播放音效
+	ResLoader::playMusic(MusicType::Hit);
+}
+
 void Bird::setStatus(Status status)
 {
 	switch (status)
@@ -76,7 +114,7 @@ void Bird::setStatus(Status status)
 	case Status::StartToFly:
 	{
 		fly->stop();						// 停止上下晃动动画
-		frames->setInterval(0.5f);		// 加速小鸟扇动翅膀的速度
+		frames->setInterval(0.5f);			// 加速小鸟扇动翅膀的速度
 		// break;
 	}
 	case Status::Fly:

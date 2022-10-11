@@ -1,6 +1,10 @@
 #include "Ground.h"
 #include "ResLoader.h"
 
+namespace
+{
+	float speed = 120;	// 地面每秒移动速度
+}
 
 Ground::Ground()
 {
@@ -27,9 +31,9 @@ Ground::Ground()
 
 void Ground::onUpdate()
 {
-	// 把地面向左移动 2 像素
-	ground1->movePos(-2, 0);
-	ground2->movePos(-2, 0);
+	// 把地面向左移动
+	ground1->movePos(Time::getDeltaTime() * -speed, 0);
+	ground2->movePos(Time::getDeltaTime() * -speed, 0);
 	// 地面完全移出屏幕时，重置地面位置
 	if (ground1->getPosX() <= -ground1->getWidth())
 	{

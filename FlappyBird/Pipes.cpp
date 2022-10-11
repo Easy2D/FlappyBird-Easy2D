@@ -1,6 +1,10 @@
 #include "Pipes.h"
 #include "ResLoader.h"
 
+namespace
+{
+	float speed = 120;	// 水管每秒移动速度
+}
 
 Pipes::Pipes()
 {
@@ -23,7 +27,8 @@ void Pipes::onUpdate()
 	// 移动所有水管
 	for (int i = 0; i < number; i++)
 	{
-		pipes[i]->movePos(-2, 0);
+		
+		pipes[i]->movePos(Time::getDeltaTime() * -speed, 0);
 	}
 	// 判断最前面的水管是否移动到屏幕外
 	if (pipes[0]->getPosX() <= 0)

@@ -13,8 +13,7 @@ public:
 	void onUpdate() override;
 
 	void start();		// 开始游戏
-	void jump();		// 小鸟跳跃
-	void die();			// 小鸟死亡
+	void hitHappend();	// 小鸟发生碰撞
 	void gameover();	// 游戏结束
 
 protected:

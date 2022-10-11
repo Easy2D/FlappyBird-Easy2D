@@ -54,22 +54,20 @@ void GameScene::onUpdate()
 	if (Input::isPress(MouseCode::Left) ||
 		Input::isPress(KeyCode::Space))
 	{
-		this->jump();
+		if (!started)
+		{
+			// 若游戏还没有开始，开始游戏
+			started = true;
+			start();
+		}
+		bird->jump();
 	}
 
 	// 判断游戏是否已经开始
 	if (started)
 	{
 		// 模拟小鸟下落
-		bird->movePosY(bird->speed);
-		// 模拟小鸟所受重力
-		bird->speed += 0.4f;
-		// 若小鸟纵坐标小于 0，限制它继续往上飞
-		if (bird->getPosY() < 0)
-		{
-			bird->setPosY(0);
-			bird->speed = 0;
-		}
+		bird->fall();
 
 		// 判断小鸟是否飞过了水管
 		if (!pipes->pipes[0]->scored &&
@@ -92,9 +90,10 @@ void GameScene::onUpdate()
 				auto box = bird->getBoundingBox();  // 获取小鸟外包围盒
 				for (auto child : pipe->getAllChildren())
 				{
-					if (child->getBoundingBox().intersects(box))
-					{  // 判断小鸟包围盒是否和水管相交
-						this->die();
+					if (child->getBoundingBox().intersects(box))	// 判断小鸟包围盒是否和水管相交，相交即碰撞
+					{
+						this->hitHappend();
+						break;
 					}
 				}
 			}
@@ -103,7 +102,7 @@ void GameScene::onUpdate()
 		// 若小鸟纵坐标小于地面，游戏结束
 		if (Window::getHeight() - bird->getPosY() <= 123)
 		{
-			this->die();
+			this->hitHappend();
 			// 让小鸟停止
 			bird->setPosY(Window::getHeight() - 123);
 			bird->setStatus(Bird::Status::Still);
@@ -126,33 +125,13 @@ void GameScene::start()
 	bird->setStatus(Bird::Status::StartToFly);
 }
 
-void GameScene::jump()
+void GameScene::hitHappend()
 {
-	if (!started)
-	{
-		// 若游戏还没有开始，开始游戏
-		started = true;
-		start();
-	}
-	if (bird->living)
-	{
-		// 如果小鸟还活着，给小鸟一个向上的速度
-		bird->speed = -7.2f;
-		// 设置小鸟状态
-		bird->setStatus(Bird::Status::Fly);
-		// 播放音效
-		ResLoader::playMusic(MusicType::Fly);
-	}
-}
-
-void GameScene::die()
-{
-	if (!bird->living) return;
+	if (!bird->living)
+		return;
 
 	// 小鸟死亡
-	bird->living = false;
-	// 播放音效
-	ResLoader::playMusic(MusicType::Hit);
+	bird->die();
 	// 停止地面
 	ground->stop();
 	// 停止水管

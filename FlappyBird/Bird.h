@@ -10,6 +10,15 @@ public:
 
 	~Bird();
 
+	// ÏÂÂä
+	void fall();
+
+	// ÌøÔ¾
+	void jump();
+
+	// ËÀÍö
+	void die();
+
 	// Ğ¡Äñ×´Ì¬
 	enum class Status
 	{
