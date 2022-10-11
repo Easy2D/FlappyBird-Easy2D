@@ -9,6 +9,6 @@ public:
 
 	void initPanel(int score);
 	void initButtons();
-	Image* getModal(int score);
+	KeyFrame* getModal(int score);
 };
 

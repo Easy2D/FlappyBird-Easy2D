@@ -17,14 +17,14 @@ void Number::setNumber(int number)
 	this->removeAllChildren();
 
 	// 数字高度
-	float height = ResLoader::getImage(L"number_big_0")->getHeight();
+	float height = ResLoader::getKeyFrame(L"number_big_0")->getHeight();
 	// 数字总宽度
 	float totalWidth = 0;
 	// 为数字的每一位添加相应图片
 	// 对数字 0 作单独处理
 	if (number == 0)
 	{
-		auto zero = gcnew Sprite(ResLoader::getImage(L"number_big_0"));
+		auto zero = gcnew Sprite(ResLoader::getKeyFrame(L"number_big_0"));
 		totalWidth = zero->getWidth();
 		this->addChild(zero);
 	}
@@ -38,7 +38,7 @@ void Number::setNumber(int number)
 			number /= 10;
 			// 转换为字符串
 			wsprintf(str, L"number_big_%d", temp);
-			auto sprite = gcnew Sprite(ResLoader::getImage(str));
+			auto sprite = gcnew Sprite(ResLoader::getKeyFrame(str));
 			totalWidth += sprite->getWidth();
 			// 添加数字
 			this->addChild(sprite);
@@ -62,12 +62,12 @@ void Number::setLittleNumber(int number)
 	this->removeAllChildren();
 
 	// 数字高度
-	float height = ResLoader::getImage(L"number_medium_0")->getHeight();
+	float height = ResLoader::getKeyFrame(L"number_medium_0")->getHeight();
 	// 为数字的每一位添加相应图片
 	// 对数字 0 作单独处理
 	if (number == 0)
 	{
-		auto zero = gcnew Sprite(ResLoader::getImage(L"number_medium_0"));
+		auto zero = gcnew Sprite(ResLoader::getKeyFrame(L"number_medium_0"));
 		this->addChild(zero);
 	}
 	else
@@ -80,7 +80,7 @@ void Number::setLittleNumber(int number)
 			number /= 10;
 			// 转换为字符串
 			wsprintf(str, L"number_medium_%d", temp);
-			auto sprite = gcnew Sprite(ResLoader::getImage(str));
+			auto sprite = gcnew Sprite(ResLoader::getKeyFrame(str));
 			// 添加数字
 			this->addChild(sprite);
 		}

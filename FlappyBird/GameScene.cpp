@@ -5,7 +5,7 @@
 GameScene::GameScene()
 {
 	// Ìí¼Ó±³¾°
-	auto background = gcnew Sprite(ResLoader::getImage(L"bg_day"));
+	auto background = gcnew Sprite(ResLoader::getKeyFrame(L"bg_day"));
 	background->setAnchor(0, 0);
 	this->addChild(background);
 
@@ -29,12 +29,12 @@ GameScene::GameScene()
 	this->addChild(scoreImage);
 
 	// Ìí¼Ó ready Í¼Æ¬
-	ready = gcnew Sprite(ResLoader::getImage(L"text_ready"));
+	ready = gcnew Sprite(ResLoader::getKeyFrame(L"text_ready"));
 	ready->setPos(Window::getWidth() / 2, Window::getHeight() / 2 - 70);
 	this->addChild(ready);
 
 	// Ìí¼Ó½Ì³ÌÍ¼Æ¬
-	tutorial = gcnew Sprite(ResLoader::getImage(L"tutorial"));
+	tutorial = gcnew Sprite(ResLoader::getKeyFrame(L"tutorial"));
 	tutorial->setPos(Window::getWidth() / 2, Window::getHeight() / 2 + 30);
 	this->addChild(tutorial);
 
@@ -160,7 +160,7 @@ void GameScene::die()
 	// Òþ²ØµÃ·Ö
 	scoreImage->runAction(gcnew FadeOut(0.5f));
 	// ÉÁ¶¯°×ÆÁ
-	auto white = gcnew Sprite(ResLoader::getImage(L"white"));
+	auto white = gcnew Sprite(ResLoader::getKeyFrame(L"white"));
 	white->setAnchor(0, 0);
 	white->setOpacity(0);
 	white->setScale(16, 16);

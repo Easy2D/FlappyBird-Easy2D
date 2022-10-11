@@ -8,7 +8,7 @@
 GameOverLayer::GameOverLayer(int score)
 {
 	// 显示 GameOver 图片
-	auto gameover = gcnew Sprite(ResLoader::getImage(L"text_game_over"));
+	auto gameover = gcnew Sprite(ResLoader::getKeyFrame(L"text_game_over"));
 	gameover->setAnchor(0.5f, 0);
 	gameover->setPosY(120);
 	this->addChild(gameover);
@@ -33,7 +33,7 @@ GameOverLayer::GameOverLayer(int score)
 void GameOverLayer::initPanel(int score)
 {
 	// 显示得分板
-	auto panel = gcnew Sprite(ResLoader::getImage(L"score_panel"));
+	auto panel = gcnew Sprite(ResLoader::getKeyFrame(L"score_panel"));
 	panel->setPosY(Window::getHeight() / 2);
 	this->addChild(panel);
 
@@ -46,7 +46,7 @@ void GameOverLayer::initPanel(int score)
 		bestScore = score;
 		Data::saveInt(L"best_score", bestScore);
 		// 添加 gcnew 图标
-		auto newImage = gcnew Sprite(ResLoader::getImage(L"new"));
+		auto newImage = gcnew Sprite(ResLoader::getKeyFrame(L"new"));
 		newImage->setPos(145, 86);
 		panel->addChild(newImage);
 	}
@@ -59,14 +59,14 @@ void GameOverLayer::initPanel(int score)
 		modal->setPos(54, 68);
 		panel->addChild(modal);
 		// 添加闪光
-		auto blink = gcnew Sprite(ResLoader::getImage(L"blink_00"));
+		auto blink = gcnew Sprite(ResLoader::getKeyFrame(L"blink_00"));
 		// 闪光动画
-		auto frames = gcnew Animation(0.13f);
-		frames->add(ResLoader::getImage(L"blink_00"));
-		frames->add(ResLoader::getImage(L"blink_01"));
-		frames->add(ResLoader::getImage(L"blink_02"));
-		frames->add(ResLoader::getImage(L"blink_01"));
-		frames->add(ResLoader::getImage(L"blink_00"));
+		auto frames = gcnew FrameSequence(0.13f);
+		frames->add(ResLoader::getKeyFrame(L"blink_00"));
+		frames->add(ResLoader::getKeyFrame(L"blink_01"));
+		frames->add(ResLoader::getKeyFrame(L"blink_02"));
+		frames->add(ResLoader::getKeyFrame(L"blink_01"));
+		frames->add(ResLoader::getKeyFrame(L"blink_00"));
 		// 随机闪光位置的动画
 		auto action = gcnew CallFunc([=]
 			{
@@ -75,7 +75,7 @@ void GameOverLayer::initPanel(int score)
 				blink->setPos(x, y);
 			});
 		// 两动画交替循环运行
-		blink->runAction(gcnew Loop(gcnew Sequence({ action, gcnew Animate(frames) })));
+		blink->runAction(gcnew Loop(gcnew Sequence({ action, gcnew Animation(frames) })));
 		modal->addChild(blink);
 	}
 
@@ -95,8 +95,8 @@ void GameOverLayer::initPanel(int score)
 void GameOverLayer::initButtons()
 {
 	// 显示重新开始按钮
-	auto restartBtnNormal = gcnew Sprite(ResLoader::getImage(L"button_restart"));
-	auto restartBtnSelected = gcnew Sprite(ResLoader::getImage(L"button_restart"));
+	auto restartBtnNormal = gcnew Sprite(ResLoader::getKeyFrame(L"button_restart"));
+	auto restartBtnSelected = gcnew Sprite(ResLoader::getKeyFrame(L"button_restart"));
 	restartBtnSelected->setPosY(5);
 	auto restart = gcnew Button(restartBtnNormal, restartBtnSelected);
 	// 按下重新开始，进入一个新的 GameScene
@@ -109,8 +109,8 @@ void GameOverLayer::initButtons()
 	this->addChild(restart);
 
 	// 显示返回主菜单按钮
-	auto menuBtnNormal = gcnew Sprite(ResLoader::getImage(L"button_menu"));
-	auto menuBtnSelected = gcnew Sprite(ResLoader::getImage(L"button_menu"));
+	auto menuBtnNormal = gcnew Sprite(ResLoader::getKeyFrame(L"button_menu"));
+	auto menuBtnSelected = gcnew Sprite(ResLoader::getKeyFrame(L"button_menu"));
 	menuBtnSelected->setPosY(5);
 	auto menu = gcnew Button(menuBtnNormal, menuBtnSelected);
 	// 按下返回主菜单，返回上一个场景
@@ -123,8 +123,8 @@ void GameOverLayer::initButtons()
 	this->addChild(menu);
 
 	// 显示链接按钮
-	auto shareBtnNormal = gcnew Sprite(ResLoader::getImage(L"button_share"));
-	auto shareBtnSelected = gcnew Sprite(ResLoader::getImage(L"button_share"));
+	auto shareBtnNormal = gcnew Sprite(ResLoader::getKeyFrame(L"button_share"));
+	auto shareBtnSelected = gcnew Sprite(ResLoader::getKeyFrame(L"button_share"));
 	shareBtnSelected->setPosY(5);
 	auto share = gcnew Button(shareBtnNormal, shareBtnSelected);
 	// 按下链接按钮，打开链接
@@ -137,7 +137,7 @@ void GameOverLayer::initButtons()
 	this->addChild(share);
 }
 
-Image* GameOverLayer::getModal(int score)
+KeyFrame* GameOverLayer::getModal(int score)
 {
 	if (score < 10)
 	{
@@ -145,18 +145,18 @@ Image* GameOverLayer::getModal(int score)
 	}
 	else if (score >= 10 && score < 20)
 	{
-		return ResLoader::getImage(L"medals_0");	// 铜牌
+		return ResLoader::getKeyFrame(L"medals_0");	// 铜牌
 	}
 	else if (score >= 20 && score < 30)
 	{
-		return ResLoader::getImage(L"medals_1");	// 银牌
+		return ResLoader::getKeyFrame(L"medals_1");	// 银牌
 	}
 	else if (score >= 30 && score < 50)
 	{
-		return ResLoader::getImage(L"medals_2");	// 金牌
+		return ResLoader::getKeyFrame(L"medals_2");	// 金牌
 	}
 	else
 	{
-		return ResLoader::getImage(L"medals_3");	// 钻石奖牌
+		return ResLoader::getKeyFrame(L"medals_3");	// 钻石奖牌
 	}
 }

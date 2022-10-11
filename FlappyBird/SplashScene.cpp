@@ -15,7 +15,7 @@ void Start()
 SplashScene::SplashScene()
 {
 	// 显示游戏刚开始时的 LOGO
-	auto splash = gcnew Sprite(ResLoader::getImage(L"splash"));
+	auto splash = gcnew Sprite(ResLoader::getKeyFrame(L"splash"));
 	this->addChild(splash);
 	// 设置图片居中显示
 	splash->setPos(Window::getSize() / 2);

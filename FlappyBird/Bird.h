@@ -26,6 +26,6 @@ public:
 	bool living;
 	float speed;
 	Action* fly;
-	Animation* animation;
+	FrameSequence* frames;
 	Action* rotate;
 };

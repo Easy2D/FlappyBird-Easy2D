@@ -11,7 +11,7 @@ Ground::Ground()
 	// 交替运行，地面看上去就像一直在移动了
 
 	// 创建第一块地面
-	ground1 = gcnew Sprite(ResLoader::getImage(L"land"));
+	ground1 = gcnew Sprite(ResLoader::getKeyFrame(L"land"));
 	// 地面锚点设置在左下角
 	ground1->setAnchor(0, 1);
 	// 将地面放在屏幕底部
@@ -19,7 +19,7 @@ Ground::Ground()
 	this->addChild(ground1);
 
 	// 创建第二块地面
-	ground2 = gcnew Sprite(ResLoader::getImage(L"land"));
+	ground2 = gcnew Sprite(ResLoader::getKeyFrame(L"land"));
 	ground2->setAnchor(0, 1);
 	ground2->setPos(ground1->getWidth(), Window::getHeight());
 	this->addChild(ground2);

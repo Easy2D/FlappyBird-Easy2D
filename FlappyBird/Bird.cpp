@@ -8,36 +8,33 @@ Bird::Bird()
 	speed = 0;
 
 	// 创建帧动画，0.1f 秒切换一次
-	animation = gcnew Animation(0.1f);
+	frames = gcnew FrameSequence(0.1f);
 	// 随机小鸟颜色
 	int mode = Random::range(0, 2);
 	// 为不同颜色的小鸟加载不同的帧动画
 	if (mode == 0)
 	{
-		this->open(ResLoader::getImage(L"bird0_0"));
-		animation->add(ResLoader::getImage(L"bird0_0"));
-		animation->add(ResLoader::getImage(L"bird0_1"));
-		animation->add(ResLoader::getImage(L"bird0_2"));
-		animation->add(ResLoader::getImage(L"bird0_1"));
+		frames->add(ResLoader::getKeyFrame(L"bird0_0"));
+		frames->add(ResLoader::getKeyFrame(L"bird0_1"));
+		frames->add(ResLoader::getKeyFrame(L"bird0_2"));
+		frames->add(ResLoader::getKeyFrame(L"bird0_1"));
 	}
 	else if (mode == 1)
 	{
-		this->open(ResLoader::getImage(L"bird1_0"));
-		animation->add(ResLoader::getImage(L"bird1_0"));
-		animation->add(ResLoader::getImage(L"bird1_1"));
-		animation->add(ResLoader::getImage(L"bird1_2"));
-		animation->add(ResLoader::getImage(L"bird1_1"));
+		frames->add(ResLoader::getKeyFrame(L"bird1_0"));
+		frames->add(ResLoader::getKeyFrame(L"bird1_1"));
+		frames->add(ResLoader::getKeyFrame(L"bird1_2"));
+		frames->add(ResLoader::getKeyFrame(L"bird1_1"));
 	}
 	else
 	{
-		this->open(ResLoader::getImage(L"bird2_0"));
-		animation->add(ResLoader::getImage(L"bird2_0"));
-		animation->add(ResLoader::getImage(L"bird2_1"));
-		animation->add(ResLoader::getImage(L"bird2_2"));
-		animation->add(ResLoader::getImage(L"bird2_1"));
+		frames->add(ResLoader::getKeyFrame(L"bird2_0"));
+		frames->add(ResLoader::getKeyFrame(L"bird2_1"));
+		frames->add(ResLoader::getKeyFrame(L"bird2_2"));
+		frames->add(ResLoader::getKeyFrame(L"bird2_1"));
 	}
 	// 循环运行帧动画
-	this->runAction(gcnew Loop(gcnew Animate(animation)));
+	this->runAction(gcnew Loop(gcnew Animation(frames)));
 
 	// 初始化飞翔动画（上下微微浮动）
 	auto moveBy = gcnew MoveBy(0.4f, Vector2(0, 8));
@@ -79,7 +76,7 @@ void Bird::setStatus(Status status)
 	case Status::StartToFly:
 	{
 		fly->stop();						// 停止上下晃动动画
-		animation->setInterval(0.5f);		// 加速小鸟扇动翅膀的速度
+		frames->setInterval(0.5f);		// 加速小鸟扇动翅膀的速度
 		// break;
 	}
 	case Status::Fly:

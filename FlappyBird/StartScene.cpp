@@ -9,7 +9,7 @@
 StartScene::StartScene()
 {
 	// 添加背景
-	auto background = gcnew Sprite(ResLoader::getImage(L"bg_day"));
+	auto background = gcnew Sprite(ResLoader::getKeyFrame(L"bg_day"));
 	background->setPos(Window::getWidth() / 2, Window::getHeight() / 2);
 	this->addChild(background);
 
@@ -17,7 +17,7 @@ StartScene::StartScene()
 	this->addChild(gcnew Ground());
 
 	// 添加标题图片
-	auto title = gcnew Sprite(ResLoader::getImage(L"title"));
+	auto title = gcnew Sprite(ResLoader::getKeyFrame(L"title"));
 	title->setPos(Window::getWidth() / 2, 150);
 	this->addChild(title);
 
@@ -27,8 +27,8 @@ StartScene::StartScene()
 	this->addChild(bird);
 
 	// 创建开始按钮正常状态和按下状态时显示的精灵
-	auto startBtnNormal = gcnew Sprite(ResLoader::getImage(L"button_play"));
-	auto startBtnSelected = gcnew Sprite(ResLoader::getImage(L"button_play"));
+	auto startBtnNormal = gcnew Sprite(ResLoader::getKeyFrame(L"button_play"));
+	auto startBtnSelected = gcnew Sprite(ResLoader::getKeyFrame(L"button_play"));
 	startBtnSelected->setPosY(5);	// 按钮被选中时向下移动一点点
 	// 添加开始按钮
 	auto startBtn = gcnew Button(startBtnNormal, startBtnSelected);
@@ -43,8 +43,8 @@ StartScene::StartScene()
 	this->addChild(startBtn);
 
 	// 添加打开分享链接按钮
-	auto shareBtnNormal = gcnew Sprite(ResLoader::getImage(L"button_share"));
-	auto shareBtnSelected = gcnew Sprite(ResLoader::getImage(L"button_share"));
+	auto shareBtnNormal = gcnew Sprite(ResLoader::getKeyFrame(L"button_share"));
+	auto shareBtnSelected = gcnew Sprite(ResLoader::getKeyFrame(L"button_share"));
 	shareBtnSelected->setPosY(5);
 	auto shareBtn = gcnew Button(shareBtnNormal, shareBtnSelected);
 	// 按下按钮打开超链接
@@ -58,7 +58,7 @@ StartScene::StartScene()
 	this->addChild(shareBtn);
 
 	// 添加 copyright 图片
-	auto copyright = gcnew Sprite(ResLoader::getImage(L"brand_copyright"));
+	auto copyright = gcnew Sprite(ResLoader::getKeyFrame(L"brand_copyright"));
 	copyright->setPos(Window::getWidth() / 2, Window::getHeight() - 20);
 	this->addChild(copyright);
 }

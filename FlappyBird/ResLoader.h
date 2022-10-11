@@ -19,7 +19,7 @@ public:
 	static void init();
 
 	// ªÒ»°Õº∆¨
-	static Image* getImage(String imageName);
+	static KeyFrame* getKeyFrame(String imageName);
 
 	// ≤•∑≈“Ù∆µ
 	static void playMusic(MusicType musicType);

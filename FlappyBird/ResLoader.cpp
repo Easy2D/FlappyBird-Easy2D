@@ -2,13 +2,14 @@
 #include "resource.h"
 #include <sstream>
 
+Image* image = nullptr;
 std::map<String, ResLoader::ImageInfo> ResLoader::imageMap;
 std::map<MusicType, Music*> ResLoader::musicMap;
 
 void ResLoader::init()
 {
 	// 预加载图片
-	Image::preload(IDB_PNG1, L"PNG");
+	image = Image::preload(IDB_PNG1, L"PNG");
 
 	// 打开 atlas.txt 文件
 	Resource atlas(IDR_TXT1, L"TXT");
@@ -43,7 +44,7 @@ void ResLoader::init()
 	}
 }
 
-Image* ResLoader::getImage(String imageName)
+KeyFrame* ResLoader::getKeyFrame(String imageName)
 {
 	auto iter = imageMap.find(imageName);
 	if (iter == imageMap.end())
@@ -51,8 +52,7 @@ Image* ResLoader::getImage(String imageName)
 		return nullptr;
 	}
 	ImageInfo info = imageMap.at(imageName);
-	Image* image = gcnew Image(IDB_PNG1, L"PNG", Rect{ Point{info.x, info.y}, Size{info.width, info.height} });
-	return image;
+	return gcnew KeyFrame(image, Rect{ Point{info.x, info.y}, Size{info.width, info.height} });
 }
 
 void ResLoader::playMusic(MusicType musicType)
