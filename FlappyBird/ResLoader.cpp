@@ -9,7 +9,7 @@ std::map<MusicType, Music*> ResLoader::musicMap;
 void ResLoader::init()
 {
 	// 预加载图片
-	image = Image::preload(IDB_PNG1, L"PNG");
+	image = Image::load(IDB_PNG1, L"PNG");
 
 	// 打开 atlas.txt 文件
 	Resource atlas(IDR_TXT1, L"TXT");
