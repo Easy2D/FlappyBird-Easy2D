@@ -2,6 +2,7 @@
 #include "GameScene.h"
 #include "Number.h"
 #include "ResLoader.h"
+#include "MyButton.h"
 #include <shellapi.h>
 
 
@@ -95,46 +96,29 @@ void GameOverLayer::initPanel(int score)
 void GameOverLayer::initButtons()
 {
 	// 显示重新开始按钮
-	auto restartBtnNormal = gcnew Sprite(ResLoader::getKeyFrame(L"button_restart"));
-	auto restartBtnSelected = gcnew Sprite(ResLoader::getKeyFrame(L"button_restart"));
-	restartBtnSelected->setPosY(5);
-	auto restart = gcnew Button(restartBtnNormal, restartBtnSelected);
-	// 按下重新开始，进入一个新的 GameScene
-	restart->setClickFunc([]
-		{
-			ResLoader::playMusic(MusicType::Click);
-			SceneManager::enter(gcnew GameScene(), gcnew FadeTransition(0.6f), false);
+	auto restartBtn = gcnew MyButton(L"button_restart", []() {
+		ResLoader::playMusic(MusicType::Click);
+		SceneManager::enter(gcnew GameScene(), gcnew FadeTransition(0.6f), false);
 		});
-	restart->setPosY(360);
-	this->addChild(restart);
+	restartBtn->setPosY(360);
+	this->addChild(restartBtn);
 
 	// 显示返回主菜单按钮
-	auto menuBtnNormal = gcnew Sprite(ResLoader::getKeyFrame(L"button_menu"));
-	auto menuBtnSelected = gcnew Sprite(ResLoader::getKeyFrame(L"button_menu"));
-	menuBtnSelected->setPosY(5);
-	auto menu = gcnew Button(menuBtnNormal, menuBtnSelected);
-	// 按下返回主菜单，返回上一个场景
-	menu->setClickFunc([]
-		{
-			ResLoader::playMusic(MusicType::Click);
-			SceneManager::back(gcnew FadeTransition(0.6f));
+	auto menuBtn = gcnew MyButton(L"button_menu", []() {
+		ResLoader::playMusic(MusicType::Click);
+		SceneManager::back(gcnew FadeTransition(0.6f));
 		});
-	menu->setPosY(420);
-	this->addChild(menu);
+	menuBtn->setPosY(420);
+	this->addChild(menuBtn);
 
 	// 显示链接按钮
-	auto shareBtnNormal = gcnew Sprite(ResLoader::getKeyFrame(L"button_share"));
-	auto shareBtnSelected = gcnew Sprite(ResLoader::getKeyFrame(L"button_share"));
-	shareBtnSelected->setPosY(5);
-	auto share = gcnew Button(shareBtnNormal, shareBtnSelected);
-	// 按下链接按钮，打开链接
-	share->setClickFunc([]
-		{
-			ResLoader::playMusic(MusicType::Click);
-			ShellExecute(NULL, L"open", L"https://github.com/Easy2D/FlappyBird-Easy2D", NULL, NULL, SW_SHOWNORMAL);
+	auto shareBtn = gcnew MyButton(L"button_share", []() {
+		ResLoader::playMusic(MusicType::Click);
+		// 按下链接按钮，打开链接
+		ShellExecute(NULL, L"open", L"https://github.com/Easy2D/FlappyBird-Easy2D", NULL, NULL, SW_SHOWNORMAL);
 		});
-	share->setPosY(455);
-	this->addChild(share);
+	shareBtn->setPosY(455);
+	this->addChild(shareBtn);
 }
 
 KeyFrame* GameOverLayer::getModal(int score)

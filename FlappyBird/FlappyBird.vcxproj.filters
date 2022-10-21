@@ -83,6 +83,9 @@
       <Filter>对象</Filter>
     </ClInclude>
     <ClInclude Include="common.h" />
+    <ClInclude Include="MyButton.h">
+      <Filter>对象</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\logo.ico">
