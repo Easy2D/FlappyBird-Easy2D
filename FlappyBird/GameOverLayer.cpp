@@ -9,7 +9,7 @@
 GameOverLayer::GameOverLayer(int score)
 {
 	// 显示 GameOver 图片
-	auto gameover = gcnew Sprite(ResLoader::getKeyFrame(L"text_game_over"));
+	auto gameover = gcnew Sprite(ResLoader::getKeyFrame("text_game_over"));
 	gameover->setAnchor(0.5f, 0);
 	gameover->setPosY(120);
 	this->addChild(gameover);
@@ -34,20 +34,20 @@ GameOverLayer::GameOverLayer(int score)
 void GameOverLayer::initPanel(int score)
 {
 	// 显示得分板
-	auto panel = gcnew Sprite(ResLoader::getKeyFrame(L"score_panel"));
+	auto panel = gcnew Sprite(ResLoader::getKeyFrame("score_panel"));
 	panel->setPosY(Window::getHeight() / 2);
 	this->addChild(panel);
 
 	// 获取最高分
-	int bestScore = Data::getInt(L"best_score", 0);
+	int bestScore = Data::getInt("best_score", 0);
 
 	// 保存最高分
 	if (score > bestScore)
 	{
 		bestScore = score;
-		Data::saveInt(L"best_score", bestScore);
+		Data::saveInt("best_score", bestScore);
 		// 添加 gcnew 图标
-		auto newImage = gcnew Sprite(ResLoader::getKeyFrame(L"new"));
+		auto newImage = gcnew Sprite(ResLoader::getKeyFrame("new"));
 		newImage->setPos(145, 86);
 		panel->addChild(newImage);
 	}
@@ -60,14 +60,14 @@ void GameOverLayer::initPanel(int score)
 		modal->setPos(54, 68);
 		panel->addChild(modal);
 		// 添加闪光
-		auto blink = gcnew Sprite(ResLoader::getKeyFrame(L"blink_00"));
+		auto blink = gcnew Sprite(ResLoader::getKeyFrame("blink_00"));
 		// 闪光动画
 		auto frames = gcnew FrameSequence(0.13f);
-		frames->add(ResLoader::getKeyFrame(L"blink_00"));
-		frames->add(ResLoader::getKeyFrame(L"blink_01"));
-		frames->add(ResLoader::getKeyFrame(L"blink_02"));
-		frames->add(ResLoader::getKeyFrame(L"blink_01"));
-		frames->add(ResLoader::getKeyFrame(L"blink_00"));
+		frames->add(ResLoader::getKeyFrame("blink_00"));
+		frames->add(ResLoader::getKeyFrame("blink_01"));
+		frames->add(ResLoader::getKeyFrame("blink_02"));
+		frames->add(ResLoader::getKeyFrame("blink_01"));
+		frames->add(ResLoader::getKeyFrame("blink_00"));
 		// 随机闪光位置的动画
 		auto action = gcnew CallFunc([=]
 			{
@@ -96,7 +96,7 @@ void GameOverLayer::initPanel(int score)
 void GameOverLayer::initButtons()
 {
 	// 显示重新开始按钮
-	auto restartBtn = gcnew MyButton(L"button_restart", []() {
+	auto restartBtn = gcnew MyButton("button_restart", []() {
 		ResLoader::playMusic(MusicType::Click);
 		SceneManager::enter(gcnew GameScene(), gcnew FadeTransition(0.6f), false);
 		});
@@ -104,7 +104,7 @@ void GameOverLayer::initButtons()
 	this->addChild(restartBtn);
 
 	// 显示返回主菜单按钮
-	auto menuBtn = gcnew MyButton(L"button_menu", []() {
+	auto menuBtn = gcnew MyButton("button_menu", []() {
 		ResLoader::playMusic(MusicType::Click);
 		SceneManager::back(gcnew FadeTransition(0.6f));
 		});
@@ -112,10 +112,10 @@ void GameOverLayer::initButtons()
 	this->addChild(menuBtn);
 
 	// 显示链接按钮
-	auto shareBtn = gcnew MyButton(L"button_share", []() {
+	auto shareBtn = gcnew MyButton("button_share", []() {
 		ResLoader::playMusic(MusicType::Click);
 		// 按下链接按钮，打开链接
-		ShellExecute(NULL, L"open", L"https://github.com/Easy2D/FlappyBird-Easy2D", NULL, NULL, SW_SHOWNORMAL);
+		ShellExecuteA(NULL, "open", "https://github.com/Easy2D/FlappyBird-Easy2D", NULL, NULL, SW_SHOWNORMAL);
 		});
 	shareBtn->setPosY(455);
 	this->addChild(shareBtn);
@@ -129,18 +129,18 @@ KeyFrame* GameOverLayer::getModal(int score)
 	}
 	else if (score >= 10 && score < 20)
 	{
-		return ResLoader::getKeyFrame(L"medals_0");	// 铜牌
+		return ResLoader::getKeyFrame("medals_0");	// 铜牌
 	}
 	else if (score >= 20 && score < 30)
 	{
-		return ResLoader::getKeyFrame(L"medals_1");	// 银牌
+		return ResLoader::getKeyFrame("medals_1");	// 银牌
 	}
 	else if (score >= 30 && score < 50)
 	{
-		return ResLoader::getKeyFrame(L"medals_2");	// 金牌
+		return ResLoader::getKeyFrame("medals_2");	// 金牌
 	}
 	else
 	{
-		return ResLoader::getKeyFrame(L"medals_3");	// 钻石奖牌
+		return ResLoader::getKeyFrame("medals_3");	// 钻石奖牌
 	}
 }

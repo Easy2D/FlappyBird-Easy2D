@@ -19,24 +19,24 @@ Bird::Bird()
 	// 为不同颜色的小鸟加载不同的帧动画
 	if (mode == 0)
 	{
-		frames->add(ResLoader::getKeyFrame(L"bird0_0"));
-		frames->add(ResLoader::getKeyFrame(L"bird0_1"));
-		frames->add(ResLoader::getKeyFrame(L"bird0_2"));
-		frames->add(ResLoader::getKeyFrame(L"bird0_1"));
+		frames->add(ResLoader::getKeyFrame("bird0_0"));
+		frames->add(ResLoader::getKeyFrame("bird0_1"));
+		frames->add(ResLoader::getKeyFrame("bird0_2"));
+		frames->add(ResLoader::getKeyFrame("bird0_1"));
 	}
 	else if (mode == 1)
 	{
-		frames->add(ResLoader::getKeyFrame(L"bird1_0"));
-		frames->add(ResLoader::getKeyFrame(L"bird1_1"));
-		frames->add(ResLoader::getKeyFrame(L"bird1_2"));
-		frames->add(ResLoader::getKeyFrame(L"bird1_1"));
+		frames->add(ResLoader::getKeyFrame("bird1_0"));
+		frames->add(ResLoader::getKeyFrame("bird1_1"));
+		frames->add(ResLoader::getKeyFrame("bird1_2"));
+		frames->add(ResLoader::getKeyFrame("bird1_1"));
 	}
 	else
 	{
-		frames->add(ResLoader::getKeyFrame(L"bird2_0"));
-		frames->add(ResLoader::getKeyFrame(L"bird2_1"));
-		frames->add(ResLoader::getKeyFrame(L"bird2_2"));
-		frames->add(ResLoader::getKeyFrame(L"bird2_1"));
+		frames->add(ResLoader::getKeyFrame("bird2_0"));
+		frames->add(ResLoader::getKeyFrame("bird2_1"));
+		frames->add(ResLoader::getKeyFrame("bird2_2"));
+		frames->add(ResLoader::getKeyFrame("bird2_1"));
 	}
 	// 循环运行帧动画
 	this->runAction(gcnew Loop(gcnew Animation(frames)));
@@ -119,10 +119,10 @@ void Bird::setStatus(Status status)
 	}
 	case Status::Fly:
 	{
-		this->stopAction(L"rotate");		// 停止前一个旋转动作
+		this->stopAction("rotate");		// 停止前一个旋转动作
 
 		auto newRotate = rotate->clone();
-		newRotate->setName(L"rotate");
+		newRotate->setName("rotate");
 		this->runAction(newRotate);
 		break;
 	}

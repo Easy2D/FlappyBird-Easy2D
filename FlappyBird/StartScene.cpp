@@ -10,7 +10,7 @@
 StartScene::StartScene()
 {
 	// 添加背景
-	auto background = gcnew Sprite(ResLoader::getKeyFrame(L"bg_day"));
+	auto background = gcnew Sprite(ResLoader::getKeyFrame("bg_day"));
 	background->setPos(Window::getWidth() / 2, Window::getHeight() / 2);
 	this->addChild(background);
 
@@ -18,7 +18,7 @@ StartScene::StartScene()
 	this->addChild(gcnew Ground());
 
 	// 添加标题图片
-	auto title = gcnew Sprite(ResLoader::getKeyFrame(L"title"));
+	auto title = gcnew Sprite(ResLoader::getKeyFrame("title"));
 	title->setPos(Window::getWidth() / 2, 150);
 	this->addChild(title);
 
@@ -28,7 +28,7 @@ StartScene::StartScene()
 	this->addChild(bird);
 
 	// 添加开始按钮
-	auto startBtn = gcnew MyButton(L"button_play", []() {
+	auto startBtn = gcnew MyButton("button_play", []() {
 		ResLoader::playMusic(MusicType::Click);
 		// 按下开始按钮，进入 Game 场景
 		SceneManager::enter(gcnew GameScene(), gcnew FadeTransition(0.6f));
@@ -38,17 +38,17 @@ StartScene::StartScene()
 	this->addChild(startBtn);
 
 	// 添加打开分享链接按钮
-	auto shareBtn = gcnew MyButton(L"button_share", []() {
+	auto shareBtn = gcnew MyButton("button_share", []() {
 		ResLoader::playMusic(MusicType::Click);
 		// 按下按钮打开超链接
-		ShellExecute(NULL, L"open", L"https://github.com/Easy2D/FlappyBird-Easy2D", NULL, NULL, SW_SHOWNORMAL);
+		ShellExecuteA(NULL, "open", "https://github.com/Easy2D/FlappyBird-Easy2D", NULL, NULL, SW_SHOWNORMAL);
 		});
 	shareBtn->setPosX(Window::getWidth() / 2);
 	shareBtn->setPosY(Window::getHeight() - shareBtn->getHeight() - 80);
 	this->addChild(shareBtn);
 
 	// 添加 copyright 图片
-	auto copyright = gcnew Sprite(ResLoader::getKeyFrame(L"brand_copyright"));
+	auto copyright = gcnew Sprite(ResLoader::getKeyFrame("brand_copyright"));
 	copyright->setPos(Window::getWidth() / 2, Window::getHeight() - 20);
 	this->addChild(copyright);
 }

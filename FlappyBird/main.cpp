@@ -14,7 +14,7 @@ using namespace easy2d;
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
 	// 初始化窗口
-	if (Game::init(L"FlappyBird", 288, 512))
+	if (Game::init("FlappyBird", 288, 512))
 	{
 		// 设置窗口图标
 		Window::setIcon(IDI_ICON1);

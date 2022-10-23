@@ -9,10 +9,10 @@ std::map<MusicType, Music*> ResLoader::musicMap;
 void ResLoader::init()
 {
 	// 预加载图片
-	image = Image::load(IDB_PNG1, L"PNG");
+	image = Image::load(IDB_PNG1, "PNG");
 
 	// 打开 atlas.txt 文件
-	Resource atlas(IDR_TXT1, L"TXT");
+	Resource atlas(IDR_TXT1, "TXT");
 	Resource::Data data = atlas.loadData();
 	// 读取文件内容
 	std::stringstream sstream;
@@ -20,16 +20,14 @@ void ResLoader::init()
 	// 读取图片信息
 	while (!sstream.eof())
 	{
-		char name[21];
+		String name;
 		float width, height, x, y;
 		// 读取图片名称、宽高、起始点坐标
 		sstream >> name >> width >> height >> x >> y;
 		// 创建 Info
 		ImageInfo info = { x, y, width, height };
-		// 将名称从窄字符串转为宽字符串
-		String wideName = NarrowToWide(name);
 		// 保存到地图中
-		imageMap.insert(std::make_pair(wideName, info));
+		imageMap.insert(std::make_pair(name, info));
 	}
 
 	// 加载音频
@@ -38,7 +36,7 @@ void ResLoader::init()
 	for (int i = 0; i < ARRAYSIZE(wavId); i++)
 	{
 		// 使用播放器预加载音频
-		Music* music = MusicPlayer::preload(wavId[i], L"WAVE");
+		Music* music = MusicPlayer::preload(wavId[i], "WAVE");
 		// 保存到地图中
 		musicMap.insert(std::make_pair(wavName[i], music));
 	}
