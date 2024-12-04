@@ -21,5 +21,5 @@ SplashScene::SplashScene()
 	splash->setPos(Window::getSize() / 2);
 
 	// 2 ÃëºóÖ´ĞĞ Start º¯Êı
-	Timer::start(2, Start);
+	Timer::runDelayed(2, Start);
 }
