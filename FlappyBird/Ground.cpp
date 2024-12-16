@@ -25,7 +25,7 @@ Ground::Ground()
 	// 创建第二块地面
 	ground2 = gcnew Sprite(ResLoader::getKeyFrame("land"));
 	ground2->setAnchor(0, 1);
-	ground2->setPos(ground1->getWidth(), Window::getHeight());
+	ground2->setPos(ground1->getWidth() - 1, Window::getHeight());
 	this->addChild(ground2);
 }
 
@@ -37,11 +37,11 @@ void Ground::onUpdate()
 	// 地面完全移出屏幕时，重置地面位置
 	if (ground1->getPosX() <= -ground1->getWidth())
 	{
-		ground1->setPosX(ground1->getWidth() - 1);
+		ground1->setPosX(ground2->getPosX() + ground2->getWidth() - 1);
 	}
 	if (ground2->getPosX() <= -ground2->getWidth())
 	{
-		ground2->setPosX(ground2->getWidth() - 1);
+		ground2->setPosX(ground1->getPosX() + ground1->getWidth() - 1);
 	}
 }
 

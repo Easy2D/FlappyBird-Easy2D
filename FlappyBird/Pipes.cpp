@@ -34,7 +34,7 @@ void Pipes::onUpdate()
 	if (pipes[0]->getPosX() <= 0)
 	{
 		// 若第一个水管在屏幕外，删除这个水管
-		this->removeChild(pipes[0]);
+		pipes[0]->removeSelfInNextUpdate();
 		// 把原来下标为 1、2 的水管位置提前
 		pipes[0] = pipes[1];
 		pipes[1] = pipes[2];
